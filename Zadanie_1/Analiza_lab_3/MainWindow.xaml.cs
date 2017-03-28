@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +27,7 @@ namespace Analiza_lab_3
 
         public Siec siec { get; set; }
 
-        public FileHelper helper;
+        public List<DanaTestowa> DaneTestowe { get; set; }
 
         public MainWindow()
         {
@@ -42,56 +44,105 @@ namespace Analiza_lab_3
             {
                 filePath = openFileDialog1.FileName;
                 selectedFileTextBox.Text = System.IO.Path.GetFileName(filePath);
-                helper = new FileHelper(filePath);
             }
-
         }
 
         private void stworzSiecButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                /////Wczytywanie danych z formularza
                 int ileEpok = int.Parse(epokiTextBox.Text);
                 double epsilon = double.Parse(epsilonTextBox.Text);
                 int ileWarstw = int.Parse(warstwyTextBox.Text);
                 var ileNeuronowNaWarstwy = iloscNeuronowTextBox.Text.Split(';').Select(Int32.Parse).ToList();
+                int iloscWejsc = int.Parse(iloscWejscTextBox.Text);
+                int iloscWyjsc = int.Parse(iloscWyjscTextBox.Text);
+                //////////////////////////////////////////////////
+                wczytajDane(iloscWejsc, iloscWyjsc);
+
                 siec = new Siec(ileEpok, epsilon);
                 for (int i = 0; i < ileWarstw; i++)
-                {
-                    Warstwa warstwa = new Warstwa(i, ileNeuronowNaWarstwy[i]);
-                    if (i == 0)
+                {                  
+                    if (i == 0) /// pierwsza warstwa ukryta
                     {
-                        warstwa.PoprzedniaWarstwa = null;/////////pierwsza warstwa
-                                                         /*
-                                                          * Pobrac dane testowe z pliku i okreslic ile wejsc bedzie mial neuron
-                                                          */
+                        Warstwa warstwa = new Warstwa(i, ileNeuronowNaWarstwy[i]);
+                        warstwa.PoprzedniaWarstwa = null;
+                        for (int j = 0; j < warstwa.IloscNeuronow; j++)
+                        {
+                            Neuron neuron = new Neuron(iloscWejsc, 0.2, true);
+                            warstwa.DodajNeuron(neuron);
+
+                        }
+                        warstwa.rodzajWarstwy = Warstwa.RodzajWarstwy.Ukryta;
+                        siec.Warstwy.Add(warstwa);
+                        continue;
                     }
                     else
                     {
-                        warstwa.PoprzedniaWarstwa = siec.Warstwy.FirstOrDefault(x => x.Id == i - 1);
-                        for (int j = 0; i < warstwa.IloscNeuronow; i++)
+                        Warstwa warstwa = null;                    
+                        if (i == ileWarstw - 1) ///ostatnia warstwa - wyjsciowa ktora daje wyniki i musi miec tyle neuronow ile wyjsc
+                        {
+                            warstwa = new Warstwa(i, iloscWyjsc);
+                            warstwa.NastepnaWarstwa = null;
+                            warstwa.rodzajWarstwy = Warstwa.RodzajWarstwy.Wyjsciowa;
+                        }
+                        else  ////// pozostałe warstwy - ukryte 
+                        {
+                            warstwa = new Warstwa(i, ileNeuronowNaWarstwy[i]);
+                            warstwa.rodzajWarstwy = Warstwa.RodzajWarstwy.Ukryta;
+                        }
+                        
+                        var warstwaPoprzednia = siec.Warstwy.FirstOrDefault(x => x.Id == i - 1);
+                        warstwaPoprzednia.NastepnaWarstwa = warstwa;
+                        warstwa.PoprzedniaWarstwa = warstwaPoprzednia;
+                        for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
                             Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, 0.2, true);
                             warstwa.DodajNeuron(neuron);
 
                         }
-                        if (i == ileWarstw - 1)
-                        {
-                            warstwa.NastepnaWarstwa = null;
-                            warstwa.rodzajWarstwy = Warstwa.RodzajWarstwy.Wyjsciowa;
-                        }
+                        siec.Warstwy.Add(warstwa);
                     }
                 }
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                
+                Debug.WriteLine("Nieznany błąd !!!"+ex);
             }
         }
 
-        private void testBtn_Click(object sender, RoutedEventArgs e)
+        private void wczytajDane(int iloscWejsc,int iloscWyjsc)
         {
-            helper.ReadFromFile();
+            try
+            {
+                string[] lines = System.IO.File.ReadAllLines(filePath);
+                DaneTestowe = new List<DanaTestowa>();
+                foreach (var line in lines)
+                {
+                    var numbers = line.Split(new Char[] { ';', ' '}).Select(double.Parse).ToList();
+                    if(numbers.Count== (iloscWejsc+ iloscWyjsc)) ////sprawdzamy czy plik zgodny z tym co deklarowal uzytkownik
+                    {
+                        DanaTestowa dana = new DanaTestowa()
+                        {
+                            IloscWejsc = iloscWejsc,
+                            IloscWyjsc = iloscWyjsc,
+                            Wejscia = numbers.Take(iloscWejsc).ToList(),
+                            Wyjscia=numbers.GetRange(iloscWejsc, iloscWyjsc)
+                        };
+                        DaneTestowe.Add(dana);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Błędny format danych testowcyh w pliku");
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Error during reading from file " + ex);
+            }
+            
         }
     }
 }

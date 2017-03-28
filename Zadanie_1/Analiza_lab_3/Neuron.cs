@@ -12,7 +12,7 @@ namespace Analiza_lab_3
 
         private List<double> wagi;
 
-        private double wagaBiasu;
+        private double wagaBiasu = 0;
 
         public bool CzyBias { get; set; }
 
@@ -20,10 +20,16 @@ namespace Analiza_lab_3
 
         public Neuron(int iloscWejsc,double krok,bool czyBias)
         {
-            //ustawic wagi
             IloscWejsc = iloscWejsc;
             KrokNauki = krok;
             CzyBias = czyBias;
+            Random random = new Random();
+            wagi = new List<double>(iloscWejsc);
+            for (int i = 0; i < wagi.Capacity; i++)
+            {
+                wagi.Add(random.NextDouble() * 2.0 - 1);
+            }
+
         }
 
         public double Sumuj(List<double> daneWejsciowe)
