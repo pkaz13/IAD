@@ -63,7 +63,7 @@ namespace Analiza_lab_3
 
                 siec = new Siec(ileEpok, epsilon);
                 for (int i = 0; i < ileWarstw; i++)
-                {                  
+                {
                     if (i == 0) /// pierwsza warstwa ukryta
                     {
                         Warstwa warstwa = new Warstwa(i, ileNeuronowNaWarstwy[i]);
@@ -80,7 +80,7 @@ namespace Analiza_lab_3
                     }
                     else
                     {
-                        Warstwa warstwa = null;                    
+                        Warstwa warstwa = null;
                         if (i == ileWarstw - 1) ///ostatnia warstwa - wyjsciowa ktora daje wyniki i musi miec tyle neuronow ile wyjsc
                         {
                             warstwa = new Warstwa(i, iloscWyjsc);
@@ -92,7 +92,7 @@ namespace Analiza_lab_3
                             warstwa = new Warstwa(i, ileNeuronowNaWarstwy[i]);
                             warstwa.rodzajWarstwy = Warstwa.RodzajWarstwy.Ukryta;
                         }
-                        
+
                         var warstwaPoprzednia = siec.Warstwy.FirstOrDefault(x => x.Id == i - 1);
                         warstwaPoprzednia.NastepnaWarstwa = warstwa;
                         warstwa.PoprzedniaWarstwa = warstwaPoprzednia;
@@ -106,13 +106,13 @@ namespace Analiza_lab_3
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine("Nieznany błąd !!!"+ex);
+                Debug.WriteLine("Nieznany błąd !!!" + ex);
             }
         }
 
-        private void wczytajDane(int iloscWejsc,int iloscWyjsc)
+        private void wczytajDane(int iloscWejsc, int iloscWyjsc)
         {
             try
             {
@@ -120,15 +120,15 @@ namespace Analiza_lab_3
                 DaneTestowe = new List<DanaTestowa>();
                 foreach (var line in lines)
                 {
-                    var numbers = line.Split(new Char[] { ';', ' '}).Select(double.Parse).ToList();
-                    if(numbers.Count== (iloscWejsc+ iloscWyjsc)) ////sprawdzamy czy plik zgodny z tym co deklarowal uzytkownik
+                    var numbers = line.Split(new Char[] { ';', ' ' }).Select(double.Parse).ToList();
+                    if (numbers.Count == (iloscWejsc + iloscWyjsc)) ////sprawdzamy czy plik zgodny z tym co deklarowal uzytkownik
                     {
                         DanaTestowa dana = new DanaTestowa()
                         {
                             IloscWejsc = iloscWejsc,
                             IloscWyjsc = iloscWyjsc,
                             Wejscia = numbers.Take(iloscWejsc).ToList(),
-                            Wyjscia=numbers.GetRange(iloscWejsc, iloscWyjsc)
+                            Wyjscia = numbers.GetRange(iloscWejsc, iloscWyjsc)
                         };
                         DaneTestowe.Add(dana);
                     }
@@ -138,10 +138,20 @@ namespace Analiza_lab_3
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine("Error during reading from file " + ex);
             }
+
+        }
+
+        private void CountButton_Click(object sender, RoutedEventArgs e)
+        {
+            Neuron neuron1 = siec.Warstwy.ElementAt(0).Neurony.ElementAt(0);
+            Neuron neuron2 = siec.Warstwy.ElementAt(0).Neurony.ElementAt(1);
+
+            
+
             
         }
     }

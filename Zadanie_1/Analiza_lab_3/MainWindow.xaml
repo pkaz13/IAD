@@ -20,11 +20,12 @@
                 <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="114,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
                 <TextBlock Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="114,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
                 <Button Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="selectFileButton_Click"/>
-                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top" Width="75" Click="stworzSiecButton_Click"/>
+                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="10,247,141,0" VerticalAlignment="Top" Width="75" Click="stworzSiecButton_Click"/>
                 <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="114,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
                 <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="23" Margin="114,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
+                <Button x:Name="CountButton" Content="Licz" HorizontalAlignment="Left" Margin="114,247,0,0" VerticalAlignment="Top" Width="75" Click="CountButton_Click"/>
             </Grid>
         </GroupBox>
 
