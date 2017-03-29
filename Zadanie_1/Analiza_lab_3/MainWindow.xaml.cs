@@ -52,12 +52,12 @@ namespace Analiza_lab_3
             try
             {
                 /////Wczytywanie danych z formularza
-                int ileEpok = int.Parse(epokiTextBox.Text);
-                double epsilon = double.Parse(epsilonTextBox.Text);
-                int ileWarstw = int.Parse(warstwyTextBox.Text);
+                int ileEpok = epokiTextBox.Value.Value;
+                double epsilon = epsilonTextBox.Value.Value;
+                int ileWarstw = warstwyTextBox.Value.Value+1;
                 var ileNeuronowNaWarstwy = iloscNeuronowTextBox.Text.Split(';').Select(Int32.Parse).ToList();
-                int iloscWejsc = int.Parse(iloscWejscTextBox.Text);
-                int iloscWyjsc = int.Parse(iloscWyjscTextBox.Text);
+                int iloscWejsc = iloscWejscTextBox.Value.Value;
+                int iloscWyjsc = iloscWyjscTextBox.Value.Value;
                 //////////////////////////////////////////////////
                 wczytajDane(iloscWejsc, iloscWyjsc);
 

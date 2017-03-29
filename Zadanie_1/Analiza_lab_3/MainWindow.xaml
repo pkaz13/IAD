@@ -3,28 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Analiza_lab_3"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" >
     <Grid>
         <GroupBox Header="Ustawienia sieci" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="238">
             <Grid>
-                <Label  Content="Ilość epok:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="93"/>
-                <Label Content="Epsilon:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="93"/>
-                <Label Content="Ile warstw:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="93"/>
-                <Label Content="Ilość neuronów:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+                <Label  Content="Ilość epok:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Epsilon:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Ile warstw ukrytych:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Ilość neuronów:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Width="125"/>
                 <Label Content="Dane wejściowe:" HorizontalAlignment="Left" Margin="62,186,0,0" VerticalAlignment="Top"/>
-                <TextBox Name="epokiTextBox" HorizontalAlignment="Left" Height="22" Margin="114,14,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
-                <TextBox Name="warstwyTextBox" HorizontalAlignment="Left" Height="23" Margin="114,68,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
-                <TextBox Name="epsilonTextBox" HorizontalAlignment="Left" Height="23" Margin="114,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
-                <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="114,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
+                <xctk:IntegerUpDown Name="epokiTextBox" HorizontalAlignment="Left" Height="22" Margin="140,14,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
+                <xctk:IntegerUpDown Name="warstwyTextBox" HorizontalAlignment="Left" Height="23" Margin="140,68,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
+                <xctk:DoubleUpDown  Name="epsilonTextBox" HorizontalAlignment="Left" Height="23" Margin="140,41,0,0"  Text="0" VerticalAlignment="Top" Width="67" Increment="0.01"/>
+                <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="140,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67"/>
                 <TextBlock Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="114,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
                 <Button Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="selectFileButton_Click"/>
                 <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top" Width="75" Click="stworzSiecButton_Click"/>
-                <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="114,124,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
-                <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="23" Margin="114,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="93"/>
+                <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="91"/>
+                <xctk:IntegerUpDown x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="140,124,0,0" Text="2" VerticalAlignment="Top" Width="67" Minimum="1"/>
+                <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="91"/>
+                <xctk:IntegerUpDown x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="23" Margin="140,152,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
             </Grid>
         </GroupBox>
 
