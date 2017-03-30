@@ -29,6 +29,8 @@ namespace Analiza_lab_3
 
         public List<DanaTestowa> DaneTestowe { get; set; }
 
+        public static Random random = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -110,6 +112,7 @@ namespace Analiza_lab_3
             {
                 Debug.WriteLine("Nieznany błąd !!!"+ex);
             }
+            Licz();
         }
 
         private void wczytajDane(int iloscWejsc,int iloscWyjsc)
@@ -143,6 +146,30 @@ namespace Analiza_lab_3
                 Debug.WriteLine("Error during reading from file " + ex);
             }
             
+        }
+
+        private void Licz()
+        {
+            foreach (var item in DaneTestowe)
+            {
+                List<double> temp = new List<double>();
+                for (int i = 0; i < siec.Warstwy.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        temp=siec.Warstwy[i].SumujNeurony(item.Wejscia);
+                        continue;
+                    }
+                    else
+                    {
+                        temp = siec.Warstwy[i].SumujNeurony(temp);
+                    
+                    }
+                }
+
+            }
+            
+           
         }
     }
 }

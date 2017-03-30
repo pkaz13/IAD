@@ -23,11 +23,11 @@ namespace Analiza_lab_3
             IloscWejsc = iloscWejsc;
             KrokNauki = krok;
             CzyBias = czyBias;
-            Random random = new Random();
             wagi = new List<double>(iloscWejsc);
             for (int i = 0; i < wagi.Capacity; i++)
             {
-                wagi.Add(random.NextDouble() * 2.0 - 1);
+                
+                wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
             }
 
         }

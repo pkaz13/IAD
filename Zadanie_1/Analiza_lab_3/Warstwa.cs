@@ -37,5 +37,16 @@ namespace Analiza_lab_3
         {
             Neurony.Add(neuron);
         }
+
+        public List<double> SumujNeurony(List<double> dane)
+        {
+            List<double> wynik = new List<double>();
+            foreach (var item in Neurony)
+            {
+                double suma = item.Sumuj(dane);
+                wynik.Add(suma);
+            }
+            return wynik;
+        }
     }
 }
