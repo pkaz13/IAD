@@ -5,29 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Analiza_lab_3"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" >
+        Title="MainWindow" Height="533" Width="918" >
     <Grid>
-        <GroupBox Header="Ustawienia sieci" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="238">
+        <GroupBox Header="Ustawienia sieci" HorizontalAlignment="Left" Height="463" Margin="10,10,0,0" VerticalAlignment="Top" Width="245">
             <Grid>
-                <Label  Content="Ilość epok:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="125"/>
-                <Label Content="Epsilon:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="125"/>
-                <Label Content="Ile warstw ukrytych:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="125"/>
-                <Label Content="Ilość neuronów:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Width="125"/>
-                <Label Content="Dane wejściowe:" HorizontalAlignment="Left" Margin="62,186,0,0" VerticalAlignment="Top"/>
-                <xctk:IntegerUpDown Name="epokiTextBox" HorizontalAlignment="Left" Height="22" Margin="140,14,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
-                <xctk:IntegerUpDown Name="warstwyTextBox" HorizontalAlignment="Left" Height="23" Margin="140,68,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
-                <xctk:DoubleUpDown  Name="epsilonTextBox" HorizontalAlignment="Left" Height="23" Margin="140,41,0,0"  Text="0" VerticalAlignment="Top" Width="67" Increment="0.01"/>
-                <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="140,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="67"/>
-                <TextBlock Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="114,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="93"/>
-                <Button Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top" Width="75" Click="selectFileButton_Click"/>
-                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top" Width="75" Click="stworzSiecButton_Click"/>
-                <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Width="91"/>
-                <xctk:IntegerUpDown x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="140,124,0,0" Text="2" VerticalAlignment="Top" Width="67" Minimum="1"/>
-                <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="10,149,0,0" VerticalAlignment="Top" Width="91"/>
-                <xctk:IntegerUpDown x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="23" Margin="140,152,0,0" Text="1" VerticalAlignment="Top" Width="67" Minimum="1"/>
+                <Label  Content="Ilość epok:" HorizontalAlignment="Left" Margin="11,43,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Epsilon:" HorizontalAlignment="Left" Margin="11,74,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Ile warstw ukrytych:" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Ilość neuronów:" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="125"/>
+                <Label Content="Dane wejściowe:" HorizontalAlignment="Left" Margin="62,276,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
+                <xctk:IntegerUpDown Name="epokiTextBox" HorizontalAlignment="Left" Height="22" Margin="141,47,0,0" Text="1" VerticalAlignment="Top" Width="83" Minimum="1"/>
+                <xctk:IntegerUpDown Name="warstwyTextBox" HorizontalAlignment="Left" Height="23" Margin="140,224,0,0" Text="1" VerticalAlignment="Top" Width="83" Minimum="1"/>
+                <xctk:DoubleUpDown  Name="epsilonTextBox" HorizontalAlignment="Left" Height="23" Margin="141,74,0,0"  Value="0.01" VerticalAlignment="Top" Width="83" Increment="0.01"/>
+                <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="140,252,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="83"/>
+                <TextBlock Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="113,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" FontStyle="Italic"/>
+                <Button Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="9,365,0,0" VerticalAlignment="Top" Width="75" Click="selectFileButton_Click"/>
+                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="10,411,10,0" VerticalAlignment="Top" Width="213" Click="stworzSiecButton_Click"/>
+                <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="9,306,0,0" VerticalAlignment="Top" Width="91"/>
+                <xctk:IntegerUpDown x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="139,309,0,0" Text="2" VerticalAlignment="Top" Width="83" Minimum="1"/>
+                <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="9,334,0,0" VerticalAlignment="Top" Width="91"/>
+                <xctk:IntegerUpDown x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="23" Margin="139,337,0,0" Text="1" VerticalAlignment="Top" Width="83" Minimum="1"/>
+                <Label Content="Momentum:" HorizontalAlignment="Left" Margin="11,102,0,0" VerticalAlignment="Top" Width="125"/>
+                <xctk:DoubleUpDown  x:Name="momentumTextBox" HorizontalAlignment="Left" Height="23" Margin="141,102,0,0"  Value="0.5" VerticalAlignment="Top" Width="83" Increment="0.1"/>
+                <Label Content="Bias:" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="125"/>
+                <CheckBox x:Name="biasCheckBox" Content="Z biasem" HorizontalAlignment="Left" Margin="141,162,0,0" VerticalAlignment="Top" Width="81" IsChecked="True"/>
+                <Label Content="Ustawienia warstw:" HorizontalAlignment="Left" Margin="55,187,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
+                <Label Content="Parametry sieci:" HorizontalAlignment="Left" Margin="63,10,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
+                <Label Content="Wspołczynnik nauki:" HorizontalAlignment="Left" Margin="11,129,0,0" VerticalAlignment="Top" Width="125"/>
+                <xctk:DoubleUpDown  x:Name="krokNaukiTextBox" HorizontalAlignment="Left" Height="23" Margin="141,129,0,0"  Value="0.5" VerticalAlignment="Top" Width="83" Increment="0.1"/>
             </Grid>
         </GroupBox>
+
 
 
 

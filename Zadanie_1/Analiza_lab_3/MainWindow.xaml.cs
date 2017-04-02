@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+using Microsoft.Windows.Controls;
 
 namespace Analiza_lab_3
 {
@@ -26,6 +28,8 @@ namespace Analiza_lab_3
         public string filePath { get; set; }
 
         public Siec siec { get; set; }
+
+        public int IloscEpok { get; set; }
 
         public List<DanaTestowa> DaneTestowe { get; set; }
 
@@ -54,16 +58,19 @@ namespace Analiza_lab_3
             try
             {
                 /////Wczytywanie danych z formularza
-                int ileEpok = epokiTextBox.Value.Value;
+                IloscEpok = epokiTextBox.Value.Value;
                 double epsilon = epsilonTextBox.Value.Value;
                 int ileWarstw = warstwyTextBox.Value.Value+1;
                 var ileNeuronowNaWarstwy = iloscNeuronowTextBox.Text.Split(';').Select(Int32.Parse).ToList();
                 int iloscWejsc = iloscWejscTextBox.Value.Value;
                 int iloscWyjsc = iloscWyjscTextBox.Value.Value;
+                double momentum = momentumTextBox.Value.Value;
+                double krokNauki = krokNaukiTextBox.Value.Value;
+                bool czyBias = biasCheckBox.IsChecked.Value;
                 //////////////////////////////////////////////////
                 wczytajDane(iloscWejsc, iloscWyjsc);
 
-                siec = new Siec(ileEpok, epsilon);
+                siec = new Siec(IloscEpok, epsilon);
                 for (int i = 0; i < ileWarstw; i++)
                 {                  
                     if (i == 0) /// pierwsza warstwa ukryta
@@ -72,7 +79,7 @@ namespace Analiza_lab_3
                         warstwa.PoprzedniaWarstwa = null;
                         for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
-                            Neuron neuron = new Neuron(iloscWejsc, 0.2, true);
+                            Neuron neuron = new Neuron(iloscWejsc, krokNauki, czyBias);
                             warstwa.DodajNeuron(neuron);
 
                         }
@@ -100,7 +107,7 @@ namespace Analiza_lab_3
                         warstwa.PoprzedniaWarstwa = warstwaPoprzednia;
                         for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
-                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, 0.2, true);
+                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, krokNauki, czyBias);
                             warstwa.DodajNeuron(neuron);
 
                         }
@@ -112,7 +119,10 @@ namespace Analiza_lab_3
             {
                 Debug.WriteLine("Nieznany błąd !!!"+ex);
             }
-            Licz();
+            PrzejdzWszystkieEpoki();
+            SerializujSiec();
+
+
         }
 
         private void wczytajDane(int iloscWejsc,int iloscWyjsc)
@@ -148,28 +158,26 @@ namespace Analiza_lab_3
             
         }
 
-        private void Licz()
+        private void PrzejdzWszystkieEpoki()
         {
-            foreach (var item in DaneTestowe)
+            Array.ForEach(Directory.GetFiles(@"../../../Logi/"), File.Delete);
+            for (int i = 0; i < IloscEpok; i++)
             {
-                List<double> temp = new List<double>();
-                for (int i = 0; i < siec.Warstwy.Count; i++)
-                {
-                    if (i == 0)
-                    {
-                        temp=siec.Warstwy[i].SumujNeurony(item.Wejscia);
-                        continue;
-                    }
-                    else
-                    {
-                        temp = siec.Warstwy[i].SumujNeurony(temp);
-                    
-                    }
-                }
-
+                string path = @"../../../Logi/Epoka_" + (i + 1) + ".txt";
+                System.IO.File.Create(path).Close();
+                siec.LiczEpoka(DaneTestowe,path);
             }
-            
-           
         }
+
+        private void SerializujSiec()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(Siec));
+            using (var stream = new StreamWriter("../../../StrukturaSieci.xml"))
+            {
+                serializer.Serialize(stream, siec);
+            }
+        }
+
+       
     }
 }

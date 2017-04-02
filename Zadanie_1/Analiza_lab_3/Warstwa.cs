@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Analiza_lab_3
 {
@@ -22,8 +23,10 @@ namespace Analiza_lab_3
 
         public RodzajWarstwy rodzajWarstwy { get; set; }
 
+        [XmlIgnore]
         public Warstwa PoprzedniaWarstwa { get; set; }
 
+        [XmlIgnore]
         public Warstwa NastepnaWarstwa { get; set; }
 
         public Warstwa(int id,int iloscNeurnow)
@@ -31,6 +34,11 @@ namespace Analiza_lab_3
             Id = id;
             IloscNeuronow = iloscNeurnow;
             Neurony = new List<Neuron>();
+        }
+
+        public Warstwa()
+        {
+
         }
 
         public void DodajNeuron(Neuron neuron)
@@ -43,7 +51,7 @@ namespace Analiza_lab_3
             List<double> wynik = new List<double>();
             foreach (var item in Neurony)
             {
-                double suma = item.Sumuj(dane);
+                double suma = item.ObliczWyjscie(dane);
                 wynik.Add(suma);
             }
             return wynik;

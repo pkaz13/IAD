@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+Zadanie_1/Logi/
+Zadanie_1/StrukturaSieci.xml
