@@ -37,10 +37,5 @@
                 <xctk:DoubleUpDown  x:Name="krokNaukiTextBox" HorizontalAlignment="Left" Height="23" Margin="141,129,0,0"  Value="0.5" VerticalAlignment="Top" Width="83" Increment="0.1"/>
             </Grid>
         </GroupBox>
-
-
-
-
-
     </Grid>
 </Window>
