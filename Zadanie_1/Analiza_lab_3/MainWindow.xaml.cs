@@ -167,7 +167,7 @@ namespace Analiza_lab_3
             Array.ForEach(Directory.GetFiles(@"../../../Logi/"), File.Delete);
             for (int i = 0; i < IloscEpok; i++)
             {
-                string path = @"../../../Logi/Epoka_" + (i + 1) + ".txt";
+                string path = @"../../../Logi/Epoka_.txt";
                 System.IO.File.Create(path).Close();
                 siec.LiczEpoka(DaneTestowe,path);
                 Seria1.Add(new KeyValuePair<int, double>(i + 1, siec.LiczBladSredni()));

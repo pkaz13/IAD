@@ -18,7 +18,7 @@ namespace Analiza_lab_3
 
         public List<double> Wagi { get; set; }
         public List<double> PoprzednieWagi { get; set; }
-        private double wagaBiasu = 0;
+        private double wagaBiasu;
 
         public int IloscWejsc { get; set; }
         private List<double> wejscia;
@@ -47,6 +47,10 @@ namespace Analiza_lab_3
 
                 Wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
             }
+            if(czyBias==true)
+            {
+                wagaBiasu = MainWindow.random.NextDouble() * 2.0 - 1;
+            }
 
         }
 
@@ -62,7 +66,7 @@ namespace Analiza_lab_3
                 }
                 if (CzyBias == true)
                 {
-                    suma += wagaBiasu + 1;
+                    suma += wagaBiasu;
                 }
                 Suma = suma;
                 Wyjscie = FunkcjaAktywacji(suma);
