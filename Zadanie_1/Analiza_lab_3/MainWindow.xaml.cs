@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using Microsoft.Windows.Controls;
+using System.Collections.ObjectModel;
 
 namespace Analiza_lab_3
 {
@@ -25,6 +26,7 @@ namespace Analiza_lab_3
     /// </summary>
     public partial class MainWindow : Window
     {
+        ObservableCollection<KeyValuePair<int, double>> Seria1 = new ObservableCollection<KeyValuePair<int, double>>();
         public string filePath { get; set; }
 
         public Siec siec { get; set; }
@@ -38,6 +40,8 @@ namespace Analiza_lab_3
         public MainWindow()
         {
             InitializeComponent();
+            seria1.DataContext = Seria1;
+
         }
 
         private void selectFileButton_Click(object sender, RoutedEventArgs e)
@@ -79,7 +83,7 @@ namespace Analiza_lab_3
                         warstwa.PoprzedniaWarstwa = null;
                         for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
-                            Neuron neuron = new Neuron(iloscWejsc, krokNauki, czyBias);
+                            Neuron neuron = new Neuron(iloscWejsc, krokNauki, czyBias,momentum);
                             warstwa.DodajNeuron(neuron);
 
                         }
@@ -107,7 +111,7 @@ namespace Analiza_lab_3
                         warstwa.PoprzedniaWarstwa = warstwaPoprzednia;
                         for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
-                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, krokNauki, czyBias);
+                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, krokNauki, czyBias,momentum);
                             warstwa.DodajNeuron(neuron);
 
                         }
@@ -166,6 +170,7 @@ namespace Analiza_lab_3
                 string path = @"../../../Logi/Epoka_" + (i + 1) + ".txt";
                 System.IO.File.Create(path).Close();
                 siec.LiczEpoka(DaneTestowe,path);
+                Seria1.Add(new KeyValuePair<int, double>(i + 1, siec.LiczBladSredni()));
             }
         }
 

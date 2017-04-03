@@ -9,17 +9,23 @@ namespace Analiza_lab_3
 {
     public class Neuron
     {
-        public int IloscWejsc { get; set; }
-        public bool CzySigmoidalnaAktywacja { get; set; }
-        public List<double> Wagi { get; set; }
-        private double wagaBiasu = 0;
-        public bool CzyBias { get; set; }
+        ////////////////////////////////////////////Ustawienia Sieci
+        public double Momentum { get; set; }
         public double KrokNauki { get; set; }
+        public bool CzyBias { get; set; }
+        public bool CzySigmoidalnaAktywacja { get; set; }
+        /////////////////////////////////////////////////////////////
+
+        public List<double> Wagi { get; set; }
+        public List<double> PoprzednieWagi { get; set; }
+        private double wagaBiasu = 0;
+
+        public int IloscWejsc { get; set; }
         private List<double> wejscia;
         [XmlIgnore]
         public double Blad { get; set; }
         [XmlIgnore]
-        public double  Suma { get; set; }
+        public double Suma { get; set; }
         [XmlIgnore]
         public double Wyjscie { get; set; }
 
@@ -28,16 +34,17 @@ namespace Analiza_lab_3
 
         }
 
-        public Neuron(int iloscWejsc,double krok,bool czyBias)
+        public Neuron(int iloscWejsc, double krok, bool czyBias,double momentum)
         {
             CzySigmoidalnaAktywacja = true;
             IloscWejsc = iloscWejsc;
             KrokNauki = krok;
+            Momentum = momentum;
             CzyBias = czyBias;
             Wagi = new List<double>(iloscWejsc);
             for (int i = 0; i < Wagi.Capacity; i++)
             {
-                
+
                 Wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
             }
 
@@ -68,40 +75,40 @@ namespace Analiza_lab_3
             }
         }
 
-        public void ObliczBlad(Warstwa warstwa,double wartoscOczekiwana=0)
+        public void ObliczBlad(Warstwa warstwa, double wartoscOczekiwana = 0)
         {
-            if(warstwa.rodzajWarstwy==Warstwa.RodzajWarstwy.Wyjsciowa)
+            if (warstwa.rodzajWarstwy == Warstwa.RodzajWarstwy.Wyjsciowa)
             {
                 Blad = 1 / 2.0 * (wartoscOczekiwana - Wyjscie) * (wartoscOczekiwana - Wyjscie);
             }
             else
             {
                 double sumaBledow = 0;
-                for(int i=0;i<warstwa.NastepnaWarstwa.Neurony.Count;i++)
+                for (int i = 0; i < warstwa.NastepnaWarstwa.Neurony.Count; i++)
                 {
                     sumaBledow += warstwa.NastepnaWarstwa.Neurony[i].PropagacjaBledu(warstwa.Neurony.IndexOf(this));
                 }
                 Blad = sumaBledow * PochodnafunkcjiAktywacji(Suma);
             }
-            
+
         }
 
         public void ZmianaWag()
         {
             for (int i = 0; i < wejscia.Count; i++)
             {
-                Wagi[i] += (KrokNauki * Blad * wejscia[i] );
+                Wagi[i] += (KrokNauki * Blad * wejscia[i]);
             }
             if (CzyBias)
             {
-                wagaBiasu += (KrokNauki * Blad );
+                wagaBiasu += (KrokNauki * Blad);
             }
 
         }
 
         private double FunkcjaAktywacji(double x)
         {
-            if(CzySigmoidalnaAktywacja==true)
+            if (CzySigmoidalnaAktywacja == true)
             {
                 return 1 / (1 + Math.Exp(-x));
             }

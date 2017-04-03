@@ -99,9 +99,15 @@ namespace Analiza_lab_3
             }
         }
 
-        public void PoliczBladCalkowityDlaSieci()
+        public double LiczBladSredni()
         {
-
+            double sumaBledow = 0;
+            var warstwaWyjsciowa = Warstwy.FirstOrDefault(x => x.rodzajWarstwy == Warstwa.RodzajWarstwy.Wyjsciowa);
+            foreach (var item in warstwaWyjsciowa.Neurony)
+            {
+                sumaBledow += item.Blad;
+            }
+            return sumaBledow / warstwaWyjsciowa.Neurony.Count;
         }
     }
 }

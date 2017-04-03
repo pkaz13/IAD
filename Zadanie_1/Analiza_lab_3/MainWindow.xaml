@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Analiza_lab_3"
+        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         
         mc:Ignorable="d"
         Title="MainWindow" Height="533" Width="918" >
@@ -37,5 +38,21 @@
                 <xctk:DoubleUpDown  x:Name="krokNaukiTextBox" HorizontalAlignment="Left" Height="23" Margin="141,129,0,0"  Value="0.5" VerticalAlignment="Top" Width="83" Increment="0.1"/>
             </Grid>
         </GroupBox>
+        <charting:Chart Name="chart" Margin="287,10,10,29" Title="Wykres błędu" >
+            <charting:Chart.Series>
+                <charting:LineSeries x:Name="seria1" Title="Linia"  
+                                    ItemsSource="{Binding}" 
+                                    DependentValueBinding="{Binding Path=Value}" 
+                                    IndependentValueBinding="{Binding Path=Key}"
+                                    IsSelectionEnabled="False"  >
+                    <charting:LineSeries.DataPointStyle>
+                        <Style TargetType="{x:Type charting:LineDataPoint}">
+                            <Setter Property="Width" Value="0"/>
+                            <Setter Property="Height" Value="0"/>
+                        </Style>
+                    </charting:LineSeries.DataPointStyle>
+                </charting:LineSeries>
+            </charting:Chart.Series>
+        </charting:Chart>
     </Grid>
 </Window>
