@@ -10,16 +10,18 @@ namespace Analiza_lab_3
     public class Siec
     {
         public int IloscEpok { get; set; }
-
         public double Epsilon { get; set; }
-
+        public int IloscWejsc { get; set; }
+        public int IloscWyjsc { get; set; }
         public List<Warstwa> Warstwy { get; set; }
 
-        public Siec(int ileEpok,double epsilon)
+        public Siec(int ileEpok,double epsilon,int ileWejsc,int ileWyjsc)
         {
             IloscEpok = ileEpok;
             Epsilon = epsilon;
             Warstwy = new List<Warstwa>();
+            IloscWejsc = ileWejsc;
+            IloscWyjsc = ileWyjsc;
         }
 
         public Siec()

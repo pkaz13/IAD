@@ -37,9 +37,9 @@ namespace Analiza_lab_3
 
         }
 
-        public Neuron(int iloscWejsc, double krok, bool czyBias, double momentum)
+        public Neuron(int iloscWejsc, double krok, bool czyBias, double momentum,bool czySygmoidalna=true)
         {
-            CzySigmoidalnaAktywacja = true;
+            CzySigmoidalnaAktywacja = czySygmoidalna;
             IloscWejsc = iloscWejsc;
             KrokNauki = krok;
             Momentum = momentum;
