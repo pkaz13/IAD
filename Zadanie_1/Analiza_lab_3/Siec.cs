@@ -105,7 +105,7 @@ namespace Analiza_lab_3
             var warstwaWyjsciowa = Warstwy.FirstOrDefault(x => x.rodzajWarstwy == Warstwa.RodzajWarstwy.Wyjsciowa);
             foreach (var item in warstwaWyjsciowa.Neurony)
             {
-                sumaBledow += item.Blad;
+                sumaBledow += item.BladRoznicy;
             }
             return sumaBledow / warstwaWyjsciowa.Neurony.Count;
         }

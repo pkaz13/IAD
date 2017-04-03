@@ -165,19 +165,29 @@ namespace Analiza_lab_3
         private void PrzejdzWszystkieEpoki()
         {
             Array.ForEach(Directory.GetFiles(@"../../../Logi/"), File.Delete);
+            string path = @"../../../Logi/Epoka_.txt";
+            string pathToError= @"../../../Logi/Bledy.txt";
+            System.IO.File.Create(path).Close();
+            System.IO.File.Create(pathToError).Close();
             for (int i = 0; i < IloscEpok; i++)
             {
-                string path = @"../../../Logi/Epoka_.txt";
-                System.IO.File.Create(path).Close();
+                File.AppendAllText(path, "-------------------Epoka "+(i+1)+Environment.NewLine);
+
                 siec.LiczEpoka(DaneTestowe,path);
-                Seria1.Add(new KeyValuePair<int, double>(i + 1, siec.LiczBladSredni()));
+
+                double blad = siec.LiczBladSredni();
+                Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
+                File.AppendAllText(pathToError, "-------------------Epoka " + (i + 1) + Environment.NewLine);
+                File.AppendAllText(pathToError, "Błąd sieci równy : " + blad+ Environment.NewLine);
+
+
             }
         }
 
         private void SerializujSiec()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Siec));
-            using (var stream = new StreamWriter("../../../StrukturaSieci.xml"))
+            using (var stream = new StreamWriter("../../../Logi/StrukturaSieci.xml"))
             {
                 serializer.Serialize(stream, siec);
             }

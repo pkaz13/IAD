@@ -19,6 +19,7 @@ namespace Analiza_lab_3
         public List<double> Wagi { get; set; }
         public List<double> PoprzednieWagi { get; set; }
         private double wagaBiasu;
+        private double poprzedniaWagaBiasu = 0;
 
         public int IloscWejsc { get; set; }
         private List<double> wejscia;
@@ -28,13 +29,15 @@ namespace Analiza_lab_3
         public double Suma { get; set; }
         [XmlIgnore]
         public double Wyjscie { get; set; }
+        [XmlIgnore]
+        public double BladRoznicy { get; set; }
 
         public Neuron()
         {
 
         }
 
-        public Neuron(int iloscWejsc, double krok, bool czyBias,double momentum)
+        public Neuron(int iloscWejsc, double krok, bool czyBias, double momentum)
         {
             CzySigmoidalnaAktywacja = true;
             IloscWejsc = iloscWejsc;
@@ -42,12 +45,17 @@ namespace Analiza_lab_3
             Momentum = momentum;
             CzyBias = czyBias;
             Wagi = new List<double>(iloscWejsc);
+            PoprzednieWagi = new List<double>(iloscWejsc);
+            for (int i = 0; i < PoprzednieWagi.Capacity; i++)
+            {
+                PoprzednieWagi.Add(0);
+            }
             for (int i = 0; i < Wagi.Capacity; i++)
             {
 
                 Wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
             }
-            if(czyBias==true)
+            if (czyBias == true)
             {
                 wagaBiasu = MainWindow.random.NextDouble() * 2.0 - 1;
             }
@@ -83,7 +91,8 @@ namespace Analiza_lab_3
         {
             if (warstwa.rodzajWarstwy == Warstwa.RodzajWarstwy.Wyjsciowa)
             {
-                Blad = 1 / 2.0 * (wartoscOczekiwana - Wyjscie) * (wartoscOczekiwana - Wyjscie);
+                ObliczBlad(wartoscOczekiwana);
+                Blad = PochodnafunkcjiAktywacji(Wyjscie) * (wartoscOczekiwana - Wyjscie);
             }
             else
             {
@@ -101,11 +110,16 @@ namespace Analiza_lab_3
         {
             for (int i = 0; i < wejscia.Count; i++)
             {
-                Wagi[i] += (KrokNauki * Blad * wejscia[i]);
+                double temp = Wagi[i];
+                Wagi[i] += (KrokNauki * Blad * wejscia[i]+Momentum*PoprzednieWagi[i]);
+                PoprzednieWagi[i] = Wagi[i] - temp;
+
             }
             if (CzyBias)
             {
-                wagaBiasu += (KrokNauki * Blad);
+                double temp = wagaBiasu;
+                wagaBiasu += (KrokNauki * Blad+Momentum*poprzedniaWagaBiasu);
+                poprzedniaWagaBiasu = wagaBiasu - temp;
             }
 
         }
@@ -137,6 +151,11 @@ namespace Analiza_lab_3
         public double PropagacjaBledu(int index)
         {
             return Wagi[index] * Blad;
+        }
+
+        public void ObliczBlad(double wartoscSpodziewana)
+        {
+            BladRoznicy = 1 / 2.0 * (wartoscSpodziewana - Wyjscie) * (wartoscSpodziewana - Wyjscie);
         }
 
     }
