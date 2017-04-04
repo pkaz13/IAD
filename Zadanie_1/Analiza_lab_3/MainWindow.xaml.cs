@@ -245,6 +245,7 @@ namespace Analiza_lab_3
         {
             if(siec!=null)
             {
+                Seria1.Clear();
                 wczytajDane(siec.IloscWejsc, siec.IloscWyjsc);
                 PrzejdzWszystkieEpoki();
                 string messageBoxText = "Trening ukończony !!!";
