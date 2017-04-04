@@ -245,6 +245,7 @@ namespace Analiza_lab_3
         {
             if(siec!=null)
             {
+                siec.IloscEpok = epokiTextBox.Value.Value;
                 Seria1.Clear();
                 wczytajDane(siec.IloscWejsc, siec.IloscWyjsc);
                 PrzejdzWszystkieEpoki();
