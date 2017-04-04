@@ -40,9 +40,9 @@
                 <Button x:Name="deserialuzujSiecButton" Content="Wczytaj sieć" HorizontalAlignment="Center" Margin="11,315,9,0" VerticalAlignment="Top" Width="213" Click="deserialuzujSiecButton_Click"/>
                 <Button x:Name="treningSieciButton" Content="Trenuj sieć" HorizontalAlignment="Center" Margin="11,487,9,0" VerticalAlignment="Top" Width="213" Click="treningSieciButton_Click"/>
                 <Label Content="Dane testowe:" HorizontalAlignment="Left" Margin="64,512,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
-                <TextBlock x:Name="selectedFileToTestTextBox_Copy" HorizontalAlignment="Left" Margin="108,544,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontStyle="Italic"/>
-                <Button x:Name="selectFileToTestButton" Content="Select File" HorizontalAlignment="Left" Margin="11,542,0,0" VerticalAlignment="Top" Width="82" Click="selectFileButton_Click"/>
-                <Button x:Name="testSieciButton" Content="Testuj sieć" HorizontalAlignment="Center" Margin="11,578,9,0" VerticalAlignment="Top" Width="213"/>
+                <TextBlock x:Name="selectedFileToTestTextBox" HorizontalAlignment="Left" Margin="108,544,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontStyle="Italic"/>
+                <Button x:Name="selectFileToTestButton" Content="Select File" HorizontalAlignment="Left" Margin="11,542,0,0" VerticalAlignment="Top" Width="82" Click="selectFileToTestButton_Click" />
+                <Button x:Name="testSieciButton" Content="Testuj sieć" HorizontalAlignment="Center" Margin="11,578,9,0" VerticalAlignment="Top" Width="213" Click="testSieciButton_Click"/>
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="287,10,10,29" Title="Wykres błędu" >

@@ -28,11 +28,10 @@ namespace Analiza_lab_3
     {
         ObservableCollection<KeyValuePair<int, double>> Seria1 = new ObservableCollection<KeyValuePair<int, double>>();
         public string filePath { get; set; }
+        public string filePathToTest { get; set; }
 
         public Siec siec { get; set; }
-
-        public int IloscEpok { get; set; }
-
+        public List<DanaTestowa> DaneTreningowe { get; set; }
         public List<DanaTestowa> DaneTestowe { get; set; }
 
         public static Random random = new Random();
@@ -62,7 +61,6 @@ namespace Analiza_lab_3
             try
             {
                 /////Wczytywanie danych z formularza
-                IloscEpok = epokiTextBox.Value.Value;
                 double epsilon = epsilonTextBox.Value.Value;
                 int ileWarstw = warstwyTextBox.Value.Value + 1;
                 var ileNeuronowNaWarstwy = iloscNeuronowTextBox.Text.Split(';').Select(Int32.Parse).ToList();
@@ -131,12 +129,16 @@ namespace Analiza_lab_3
 
         }
 
-        private void wczytajDane(int iloscWejsc, int iloscWyjsc)
+        private void wczytajDane(int iloscWejsc, int iloscWyjsc,string filePath,bool czyTrening=true)
         {
             try
             {
                 string[] lines = System.IO.File.ReadAllLines(filePath);
-                DaneTestowe = new List<DanaTestowa>();
+                if (czyTrening == true)
+                    DaneTreningowe = new List<DanaTestowa>();
+                else
+                    DaneTestowe = new List<DanaTestowa>();
+
                 foreach (var line in lines)
                 {
                     var temp = line.Replace(".", ",");
@@ -150,7 +152,10 @@ namespace Analiza_lab_3
                             Wejscia = numbers.Take(iloscWejsc).ToList(),
                             Wyjscia = numbers.GetRange(iloscWejsc, iloscWyjsc)
                         };
-                        DaneTestowe.Add(dana);
+                        if (czyTrening == true)
+                            DaneTreningowe.Add(dana);
+                        else
+                            DaneTestowe.Add(dana);
                     }
                     else
                     {
@@ -173,8 +178,7 @@ namespace Analiza_lab_3
 
         private void PrzejdzWszystkieEpoki()
         {
-            Array.ForEach(Directory.GetFiles(@"../../../Logi/"), File.Delete);
-            string path = @"../../../Logi/Epoka_.txt";
+            string path = @"../../../Logi/Epoki.txt";
             string pathToError = @"../../../Logi/Bledy.txt";
             System.IO.File.Create(path).Close();
             System.IO.File.Create(pathToError).Close();
@@ -182,7 +186,7 @@ namespace Analiza_lab_3
             {
                 File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
 
-                siec.LiczEpoka(DaneTestowe, path);
+                siec.LiczEpoka(DaneTreningowe, path);
 
                 double blad = siec.LiczBladSredni();
                 Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
@@ -191,6 +195,13 @@ namespace Analiza_lab_3
                 if (blad < siec.Epsilon)
                     break;
             }
+        }
+
+        private void PrzeprowadzTestSieci()
+        {
+            string path = @"../../../Logi/Wynik_testu_sieci.txt";
+            System.IO.File.Create(path).Close();
+            siec.TestujSiec(DaneTestowe, path);
         }
 
         private void serializujSiecButton_Click(object sender, RoutedEventArgs e)
@@ -267,13 +278,40 @@ namespace Analiza_lab_3
                 siec.IloscEpok = epokiTextBox.Value.Value;
                 siec.Epsilon = epsilonTextBox.Value.Value;
                 Seria1.Clear();
-                wczytajDane(siec.IloscWejsc, siec.IloscWyjsc);
+                wczytajDane(siec.IloscWejsc, siec.IloscWyjsc, this.filePath,true);
                 PrzejdzWszystkieEpoki();
                 string messageBoxText = "Trening ukończony !!!";
                 string caption = "Trening";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBox.Show(messageBoxText, caption, button, icon);
+            }
+        }
+
+        private void testSieciButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(siec!=null)
+            {
+                wczytajDane(siec.IloscWejsc, siec.IloscWyjsc, this.filePathToTest,false);
+                PrzeprowadzTestSieci();
+                string messageBoxText = "Test zakończony. Zajrzyj do pliku z logami.";
+                string caption = "Test";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
+        }
+
+        private void selectFileToTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Title = "Select file with data";
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                filePathToTest = openFileDialog1.FileName;
+                selectedFileToTestTextBox.Text = System.IO.Path.GetFileName(filePathToTest);
             }
         }
     }

@@ -67,6 +67,38 @@ namespace Analiza_lab_3
             }
         }
 
+        public void TestujSiec(List<DanaTestowa> dane, string pathTofile)
+        {
+            foreach (var item in dane)
+            {
+                string log = "Wartości spodziewane: ";
+                foreach (var danaWejsciowa in item.Wyjscia)
+                {
+                    log += danaWejsciowa + ",";
+                }
+                log += "    Wartości otrzymane: ";
+                List<double> temp = new List<double>();
+                for (int i = 0; i < Warstwy.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        temp = Warstwy[i].SumujNeurony(item.Wejscia);
+                        continue;
+                    }
+                    else
+                    {
+                        temp = Warstwy[i].SumujNeurony(temp);
+
+                    }
+                }
+                foreach (var wartoscObliczone in temp)
+                {
+                    log += wartoscObliczone + ",";
+                }
+                File.AppendAllText(pathTofile, log + Environment.NewLine);
+            }
+        }
+
         private void ObliczBladDlaPoszcegolnychNeuronow(DanaTestowa dane)
         {
             {
