@@ -8,7 +8,7 @@
         xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" >
+        Title="MainWindow" Height="761.648" Width="1343.182" >
     <Grid>
         <GroupBox Header="Ustawienia sieci" HorizontalAlignment="Left" Height="640" Margin="10,0,0,0" VerticalAlignment="Top" Width="245">
             <Grid>
@@ -46,8 +46,18 @@
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="287,10,10,29" Title="Wykres błędu" >
+            <charting:Chart.LegendStyle>
+                <Style TargetType="Control">
+                    <Setter Property="Width" Value="0" />
+                    <Setter Property="Height" Value="0" />
+                </Style>
+            </charting:Chart.LegendStyle>
+            <charting:Chart.Axes>
+                <charting:LinearAxis Orientation="Y" ShowGridLines="True" Title="Wartość błędu"></charting:LinearAxis>
+                <charting:LinearAxis Orientation="X" ShowGridLines="False" Title="Ilość epok"></charting:LinearAxis>
+            </charting:Chart.Axes>
             <charting:Chart.Series>
-                <charting:LineSeries x:Name="seria1" Title="Linia"  
+                <charting:LineSeries x:Name="seria1" Title="Błąd"  
                                     ItemsSource="{Binding}" 
                                     DependentValueBinding="{Binding Path=Value}" 
                                     IndependentValueBinding="{Binding Path=Key}"
