@@ -73,7 +73,7 @@ namespace Analiza_lab_3
                 bool czyBias = biasCheckBox.IsChecked.Value;
                 //////////////////////////////////////////////////
 
-                siec = new Siec(IloscEpok, epsilon, iloscWejsc,iloscWyjsc);
+                siec = new Siec(iloscWejsc, iloscWyjsc);
                 for (int i = 0; i < ileWarstw; i++)
                 {
                     if (i == 0) /// pierwsza warstwa ukryta
@@ -228,6 +228,25 @@ namespace Analiza_lab_3
                     XmlSerializer serializer = new XmlSerializer(typeof(Siec));
                     FileStream fs = new FileStream(filename, FileMode.Open);
                     siec = (Siec)serializer.Deserialize(fs);
+                    siec.Warstwy = siec.Warstwy.OrderBy(x => x.Id).ToList();
+                    for (int i = 0; i < siec.Warstwy.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                            siec.Warstwy[i].NastepnaWarstwa = siec.Warstwy[i + 1];
+                            siec.Warstwy[i].PoprzedniaWarstwa = null;
+                        }
+                        else if (i == siec.Warstwy.Count - 1)
+                        {
+                            siec.Warstwy[i].PoprzedniaWarstwa = siec.Warstwy[i - 1];
+                            siec.Warstwy[i].NastepnaWarstwa = null;
+                        }
+                        else
+                        {
+                            siec.Warstwy[i].PoprzedniaWarstwa = siec.Warstwy[i - 1];
+                            siec.Warstwy[i].NastepnaWarstwa = siec.Warstwy[i + 1];
+                        }
+                    }
                     string messageBoxText = "Sieć poprawnie wczytana z pliku xml !!!";
                     string caption = "Sieć wczytana";
                     MessageBoxButton button = MessageBoxButton.OK;
@@ -243,7 +262,7 @@ namespace Analiza_lab_3
 
         private void treningSieciButton_Click(object sender, RoutedEventArgs e)
         {
-            if(siec!=null)
+            if (siec != null)
             {
                 siec.IloscEpok = epokiTextBox.Value.Value;
                 Seria1.Clear();

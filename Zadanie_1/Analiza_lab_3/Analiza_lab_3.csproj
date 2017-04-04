@@ -186,5 +186,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dane_treningowe\aproks1.txt" />
+    <Resource Include="Dane_treningowe\aproks2.txt" />
+    <Resource Include="Dane_treningowe\klasyfikacja.txt" />
+    <Resource Include="Dane_treningowe\transformacja.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dane_testowe\" />
+    <Folder Include="Zapisane sieci\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

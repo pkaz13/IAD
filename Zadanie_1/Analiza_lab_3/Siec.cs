@@ -15,10 +15,8 @@ namespace Analiza_lab_3
         public int IloscWyjsc { get; set; }
         public List<Warstwa> Warstwy { get; set; }
 
-        public Siec(int ileEpok,double epsilon,int ileWejsc,int ileWyjsc)
+        public Siec(int ileWejsc,int ileWyjsc)
         {
-            IloscEpok = ileEpok;
-            Epsilon = epsilon;
             Warstwy = new List<Warstwa>();
             IloscWejsc = ileWejsc;
             IloscWyjsc = ileWyjsc;
