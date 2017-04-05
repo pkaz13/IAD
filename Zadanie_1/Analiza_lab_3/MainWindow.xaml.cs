@@ -26,7 +26,8 @@ namespace Analiza_lab_3
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<KeyValuePair<int, double>> Seria1 = new ObservableCollection<KeyValuePair<int, double>>();
+        ObservableCollection<KeyValuePair<double, double>> Seria1 = new ObservableCollection<KeyValuePair<double, double>>();
+        ObservableCollection<KeyValuePair<double, double>> Seria2 = new ObservableCollection<KeyValuePair<double, double>>();
         public string filePath { get; set; }
         public string filePathToTest { get; set; }
 
@@ -40,6 +41,7 @@ namespace Analiza_lab_3
         {
             InitializeComponent();
             seria1.DataContext = Seria1;
+            seria2.DataContext = Seria2;
 
         }
 
@@ -189,7 +191,7 @@ namespace Analiza_lab_3
                 {
                     File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                     blad = siec.LiczEpoka(DaneTreningowe, path);
-                    Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
+                    Seria1.Add(new KeyValuePair<double, double>(i + 1, blad));
                     File.AppendAllText(pathToError, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                     File.AppendAllText(pathToError, "Błąd sieci równy : " + blad + Environment.NewLine);
                 }
@@ -318,6 +320,26 @@ namespace Analiza_lab_3
             {
                 filePathToTest = openFileDialog1.FileName;
                 selectedFileToTestTextBox.Text = System.IO.Path.GetFileName(filePathToTest);
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (siec != null)
+            {
+                wczytajDane(siec.IloscWejsc, siec.IloscWyjsc, this.filePathToTest, false);
+                PrzeprowadzTestSieci();
+                List<double> temp = siec.TestujSiec2(DaneTestowe);
+                Seria1.Clear();
+                foreach (var item in DaneTestowe)
+                {
+                    Seria1.Add(new KeyValuePair<double, double>(item.Wejscia[0], item.Wyjscia[0]));
+                }
+                for(int i=0;i<temp.Count;i++)
+                {
+                    Seria2.Add(new KeyValuePair<double, double>(DaneTestowe[i].Wejscia[0], temp[i]));
+                }
+
             }
         }
     }

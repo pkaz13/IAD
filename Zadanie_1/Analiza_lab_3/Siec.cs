@@ -105,6 +105,35 @@ namespace Analiza_lab_3
             }
         }
 
+        public List<double> TestujSiec2(List<DanaTestowa> dane)
+        {
+            List<double> result = new List<double>();
+            foreach (var item in dane)
+            {
+                List<double> temp = new List<double>();
+                for (int i = 0; i < Warstwy.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        temp = Warstwy[i].SumujNeurony(item.Wejscia);
+                        continue;
+                    }
+                    else
+                    {
+                        temp = Warstwy[i].SumujNeurony(temp);
+
+                    }
+                }
+                foreach (var wynik in temp)
+                {
+                    result.Add(wynik);
+                }
+            }
+            return result;
+        }
+
+
+
         private void ObliczBladDlaPoszcegolnychNeuronow(DanaTestowa dane)
         {
             {

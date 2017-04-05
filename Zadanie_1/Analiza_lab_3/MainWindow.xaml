@@ -69,7 +69,21 @@
                         </Style>
                     </charting:LineSeries.DataPointStyle>
                 </charting:LineSeries>
+                <charting:LineSeries x:Name="seria2" Title="Błąd"  
+                                    ItemsSource="{Binding}" 
+                                    DependentValueBinding="{Binding Path=Value}" 
+                                    IndependentValueBinding="{Binding Path=Key}"
+                                    IsSelectionEnabled="False"  >
+                    <charting:LineSeries.DataPointStyle>
+                        <Style TargetType="{x:Type charting:LineDataPoint}">
+                            <Setter Property="Width" Value="0"/>
+                            <Setter Property="Height" Value="0"/>
+                            <Setter Property="Background" Value="Red"></Setter>
+                        </Style>
+                    </charting:LineSeries.DataPointStyle>
+                </charting:LineSeries>
             </charting:Chart.Series>
         </charting:Chart>
+        <Button Content="Pokaż wykresy aproksymacji" HorizontalAlignment="Left" Margin="10,645,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
     </Grid>
 </Window>
