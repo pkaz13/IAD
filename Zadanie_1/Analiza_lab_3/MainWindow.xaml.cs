@@ -186,9 +186,8 @@ namespace Analiza_lab_3
             {
                 File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
 
-                siec.LiczEpoka(DaneTreningowe, path);
+                double blad=siec.LiczEpoka(DaneTreningowe, path);
 
-                double blad = siec.LiczBladSredni();
                 Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
                 File.AppendAllText(pathToError, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                 File.AppendAllText(pathToError, "Błąd sieci równy : " + blad + Environment.NewLine);

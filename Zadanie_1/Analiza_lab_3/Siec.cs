@@ -32,8 +32,9 @@ namespace Analiza_lab_3
             Warstwy.Add(warstwa);
         }
 
-        public void LiczEpoka(List<DanaTestowa> dane,string pathTofile)
+        public double LiczEpoka(List<DanaTestowa> dane,string pathTofile)
         {
+            double blad = 0;
             foreach (var item in dane)
             {
                 string log = "Wartości spodziewane: ";
@@ -61,10 +62,11 @@ namespace Analiza_lab_3
                     log += wartoscObliczone + ",";
                 }
                 ObliczBladDlaPoszcegolnychNeuronow(item);
-                ZmienWagi();
+                ZmienWagi();                
                 File.AppendAllText(pathTofile, log + Environment.NewLine);
-
+                blad+= LiczBladSredni();
             }
+            return blad;
         }
 
         public void TestujSiec(List<DanaTestowa> dane, string pathTofile)
@@ -139,7 +141,7 @@ namespace Analiza_lab_3
             {
                 sumaBledow += item.BladRoznicy;
             }
-            return sumaBledow / warstwaWyjsciowa.Neurony.Count;
+            return sumaBledow ;
         }
     }
 }
