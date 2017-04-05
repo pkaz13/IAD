@@ -37,12 +37,7 @@ namespace Analiza_lab_3
             double blad = 0;
             foreach (var item in dane)
             {
-                string log = "Wartości spodziewane: ";
-                foreach (var danaWejsciowa in item.Wyjscia)
-                {
-                    log += danaWejsciowa + ",";
-                }
-                log += "    Wartości otrzymane: ";
+              
                 List<double> temp = new List<double>();
                 for (int i = 0; i < Warstwy.Count; i++)
                 {
@@ -57,13 +52,22 @@ namespace Analiza_lab_3
 
                     }
                 }
-                foreach (var wartoscObliczone in temp)
+                if (!string.IsNullOrEmpty(pathTofile))
                 {
-                    log += wartoscObliczone + ",";
+                    string log = "Wartości spodziewane: ";
+                    foreach (var danaWejsciowa in item.Wyjscia)
+                    {
+                        log += danaWejsciowa + ",";
+                    }
+                    log += "    Wartości otrzymane: ";
+                    foreach (var wartoscObliczone in temp)
+                    {
+                        log += wartoscObliczone + ",";
+                    }
+                    File.AppendAllText(pathTofile, log + Environment.NewLine);
                 }
                 ObliczBladDlaPoszcegolnychNeuronow(item);
-                ZmienWagi();                
-                File.AppendAllText(pathTofile, log + Environment.NewLine);
+                ZmienWagi();                               
                 blad+= LiczBladSredni();
             }
             return blad;

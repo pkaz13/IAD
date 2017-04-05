@@ -184,13 +184,20 @@ namespace Analiza_lab_3
             System.IO.File.Create(pathToError).Close();
             for (int i = 0; i < siec.IloscEpok; i++)
             {
-                File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
-
-                double blad=siec.LiczEpoka(DaneTreningowe, path);
-
-                Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
-                File.AppendAllText(pathToError, "-------------------Epoka " + (i + 1) + Environment.NewLine);
-                File.AppendAllText(pathToError, "Błąd sieci równy : " + blad + Environment.NewLine);
+                double blad = 0;
+                if(i%100==0 || i==siec.IloscEpok-1)
+                {
+                    File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
+                    blad = siec.LiczEpoka(DaneTreningowe, path);
+                    Seria1.Add(new KeyValuePair<int, double>(i + 1, blad));
+                    File.AppendAllText(pathToError, "-------------------Epoka " + (i + 1) + Environment.NewLine);
+                    File.AppendAllText(pathToError, "Błąd sieci równy : " + blad + Environment.NewLine);
+                }
+                else
+                {
+                    blad = siec.LiczEpoka(DaneTreningowe, "");
+                }
+               
                 if (blad < siec.Epsilon)
                     break;
             }

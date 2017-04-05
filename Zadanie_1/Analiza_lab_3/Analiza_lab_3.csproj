@@ -188,7 +188,6 @@
   <ItemGroup>
     <Resource Include="Dane_treningowe\aproks1.txt" />
     <Resource Include="Dane_treningowe\aproks2.txt" />
-    <Resource Include="Dane_treningowe\klasyfikacja.txt" />
     <Resource Include="Dane_treningowe\transformacja.txt" />
   </ItemGroup>
   <ItemGroup>
