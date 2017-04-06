@@ -32,8 +32,10 @@ namespace Analiza_lab_3
             Warstwy.Add(warstwa);
         }
 
-        public double LiczEpoka(List<DanaTestowa> dane,string pathTofile)
+        public double LiczEpoka(List<DanaTestowa> dane,string pathTofile,bool czyOstatniaEpoka=false)
         {
+            int counterTrue = 0, counterFalse = 0;
+            string path = @"../../../Logi/wyniki__.txt";
             double blad = 0;
             foreach (var item in dane)
             {
@@ -54,7 +56,9 @@ namespace Analiza_lab_3
                 }
                 if (!string.IsNullOrEmpty(pathTofile))
                 {
+             
                     string log = "Wartości spodziewane: ";
+
                     foreach (var danaWejsciowa in item.Wyjscia)
                     {
                         log += danaWejsciowa + ",";
@@ -66,9 +70,55 @@ namespace Analiza_lab_3
                     }
                     File.AppendAllText(pathTofile, log + Environment.NewLine);
                 }
-                ObliczBladDlaPoszcegolnychNeuronow(item);
-                ZmienWagi();                               
+                if(czyOstatniaEpoka==true)
+                {
+                    bool falga = true;
+                    string log = "";
+                    
+                    
+
+                    for (int i=0;i<item.Wyjscia.Count;i++)
+                    {
+                        log="";
+                        foreach (var danaWejsciowa in item.Wyjscia)
+                        {
+                            log += danaWejsciowa + ",";
+                        }
+                        log += "    Wartości otrzymane: ";
+                        foreach (var wartoscObliczone in temp)
+                        {
+                            log += wartoscObliczone + ",";
+                        }
+                        falga = true;
+                        if (Math.Abs(item.Wyjscia[i]-temp[i])>0.1)
+                        {
+                            falga = false;
+                        }
+                        
+                    }
+                    if (falga == true)
+                    {
+                        log += "    SUKCES !!!";
+                        counterTrue++;
+                    }
+                    else
+                    {
+                        log += "    PORAZKA !!!";
+                        counterFalse++;
+                    }
+                    File.AppendAllText(path, log + Environment.NewLine);
+                }
+                else
+                {
+                    ObliczBladDlaPoszcegolnychNeuronow(item);
+                    ZmienWagi();
+                }
+                                       
                 blad+= LiczBladSredni();
+            }
+            if(czyOstatniaEpoka)
+            {
+                File.AppendAllText(path, string.Format("Ilosc sukcesow : {0} , Ilosc porazek : {1} , Procent sukcesów : {2}",counterTrue,counterFalse,(double)(counterTrue/(counterTrue+counterFalse*1.0))*100) + Environment.NewLine);
             }
             return blad;
         }

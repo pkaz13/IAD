@@ -189,6 +189,12 @@ namespace Analiza_lab_3
                 double blad = 0;
                 if(i%100==0 || i==siec.IloscEpok-1)
                 {
+                    if (i == siec.IloscEpok - 1)
+                    {
+                        string patha = @"../../../Logi/wyniki__.txt";
+                        System.IO.File.Create(patha).Close();
+                        siec.LiczEpoka(DaneTreningowe, path,true);
+                    }
                     File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                     blad = siec.LiczEpoka(DaneTreningowe, path);
                     Seria1.Add(new KeyValuePair<double, double>(i + 1, blad));
@@ -341,6 +347,11 @@ namespace Analiza_lab_3
                 }
 
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+        
         }
     }
 }
