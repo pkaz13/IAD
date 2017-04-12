@@ -71,6 +71,7 @@ namespace Analiza_lab_3
                 double momentum = momentumTextBox.Value.Value;
                 double krokNauki = krokNaukiTextBox.Value.Value;
                 bool czyBias = biasCheckBox.IsChecked.Value;
+                bool czyAproksymacjaa = czyAproksymacja.IsChecked.Value;
                 //////////////////////////////////////////////////
 
                 siec = new Siec(iloscWejsc, iloscWyjsc);
@@ -110,7 +111,7 @@ namespace Analiza_lab_3
                         warstwa.PoprzedniaWarstwa = warstwaPoprzednia;
                         for (int j = 0; j < warstwa.IloscNeuronow; j++)
                         {
-                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, krokNauki, czyBias, momentum);
+                            Neuron neuron = new Neuron(warstwa.PoprzedniaWarstwa.IloscNeuronow, krokNauki, czyBias, momentum,!czyAproksymacjaa);
                             warstwa.DodajNeuron(neuron);
 
                         }

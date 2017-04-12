@@ -141,9 +141,13 @@ namespace Analiza_lab_3
             }
             if(czyOstatniaEpoka)
             {
-                string result = string.Format("Sukcesy 1 : {0} , Sukcesy 2 : {1} , Sukcesy 3 : {2} {3} Porazki 1 : {4} , Porazki 2 : {5} , Porazki 3 : {6}", counterTrue1, counterTrue2, counterTrue3, Environment.NewLine, counterFalse1, counterFalse2, counterFalse3);
+                //string result = string.Format("Sukcesy 1 : {0} , Sukcesy 2 : {1} , Sukcesy 3 : {2} {3} Porazki 1 : {4} , Porazki 2 : {5} , Porazki 3 : {6}", counterTrue1, counterTrue2, counterTrue3, Environment.NewLine, counterFalse1, counterFalse2, counterFalse3);
                 //File.AppendAllText(path, string.Format("Ilosc sukcesow : {0} , Ilosc porazek : {1} , Procent sukcesów : {2}",counterTrue1,counterFalse1,(double)(counterTrue1/(counterTrue1+counterFalse1*1.0))*100) + Environment.NewLine);
-                File.AppendAllText(path, result);
+                File.AppendAllText(path, Environment.NewLine+ "----------STATYSTYKI----------"+Environment.NewLine);
+                File.AppendAllText(path, string.Format("Rodzaj pierwszy -  Ilość sukcesów: {0} , Ilość porażek: {1} , Procent sukcesów: {2} ",counterTrue1,counterFalse1,(double)(counterTrue1/(counterTrue1+counterFalse1*1.0))*100) + Environment.NewLine);
+                File.AppendAllText(path, string.Format("Rodzaj drugi -  Ilość sukcesów: {0} , Ilość porażek: {1} , Procent sukcesów: {2} ",counterTrue2,counterFalse2,(double)(counterTrue2/(counterTrue2+counterFalse2*1.0))*100) + Environment.NewLine);
+                File.AppendAllText(path, string.Format("Rodzaj trzeci -  Ilość sukcesów: {0} , Ilość porażek: {1} , Procent sukcesów: {2} ", counterTrue3, counterFalse3, (double)(counterTrue3 / (counterTrue3 + counterFalse3 * 1.0)) * 100) + Environment.NewLine);
+                File.AppendAllText(path, string.Format("Podsumowanie -  Ilość sukcesów: {0} , Ilość porażek: {1} , Procent sukcesów: {2} ", counterTrue1+counterTrue2+counterTrue3, counterFalse1+counterFalse2+counterFalse3, (double)((counterTrue1 + counterTrue2 + counterTrue3) / (counterTrue1 + counterTrue2 + counterTrue3 + counterFalse1 + counterFalse2 + counterFalse3 * 1.0)) * 100) + Environment.NewLine);
             }
             return blad;
         }

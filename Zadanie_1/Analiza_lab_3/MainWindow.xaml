@@ -23,7 +23,7 @@
                 <TextBox Name="iloscNeuronowTextBox" HorizontalAlignment="Left" Height="23" Margin="140,172,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="83"/>
                 <TextBlock Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="108,453,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontStyle="Italic"/>
                 <Button Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="11,451,0,0" VerticalAlignment="Top" Width="82" Click="selectFileButton_Click"/>
-                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="11,265,9,0" VerticalAlignment="Top" Width="213" Click="stworzSiecButton_Click"/>
+                <Button Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="11,287,9,0" VerticalAlignment="Top" Width="213" Click="stworzSiecButton_Click"/>
                 <Label Content="Ilość wejść:" HorizontalAlignment="Left" Margin="11,195,0,0" VerticalAlignment="Top" Width="91"/>
                 <xctk:IntegerUpDown x:Name="iloscWejscTextBox" HorizontalAlignment="Left" Height="23" Margin="141,198,0,0" Text="4" VerticalAlignment="Top" Width="83" Minimum="1"/>
                 <Label Content="Ilość wyjść:" HorizontalAlignment="Left" Margin="11,223,0,0" VerticalAlignment="Top" Width="91"/>
@@ -36,13 +36,14 @@
                 <Label Content="Parametry sieci:" HorizontalAlignment="Left" Margin="64,3,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
                 <Label Content="Wspołczynnik nauki:" HorizontalAlignment="Left" Margin="11,58,0,0" VerticalAlignment="Top" Width="125"/>
                 <xctk:DoubleUpDown  x:Name="krokNaukiTextBox" HorizontalAlignment="Left" Height="23" Margin="141,58,0,0"  Value="0.2" VerticalAlignment="Top" Width="83" Increment="0.1"/>
-                <Button x:Name="serializujSiecButton" Content="Serializuj sieć" HorizontalAlignment="Center" Margin="11,290,9,0" VerticalAlignment="Top" Width="213" Click="serializujSiecButton_Click"/>
-                <Button x:Name="deserialuzujSiecButton" Content="Wczytaj sieć" HorizontalAlignment="Center" Margin="11,315,9,0" VerticalAlignment="Top" Width="213" Click="deserialuzujSiecButton_Click"/>
+                <Button x:Name="serializujSiecButton" Content="Serializuj sieć" HorizontalAlignment="Center" Margin="11,312,9,0" VerticalAlignment="Top" Width="213" Click="serializujSiecButton_Click"/>
+                <Button x:Name="deserialuzujSiecButton" Content="Wczytaj sieć" HorizontalAlignment="Center" Margin="11,337,9,0" VerticalAlignment="Top" Width="213" Click="deserialuzujSiecButton_Click"/>
                 <Button x:Name="treningSieciButton" Content="Trenuj sieć" HorizontalAlignment="Center" Margin="11,487,9,0" VerticalAlignment="Top" Width="213" Click="treningSieciButton_Click"/>
                 <Label Content="Dane testowe:" HorizontalAlignment="Left" Margin="64,512,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59"/>
                 <TextBlock x:Name="selectedFileToTestTextBox" HorizontalAlignment="Left" Margin="108,544,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontStyle="Italic"/>
                 <Button x:Name="selectFileToTestButton" Content="Select File" HorizontalAlignment="Left" Margin="11,542,0,0" VerticalAlignment="Top" Width="82" Click="selectFileToTestButton_Click" />
                 <Button x:Name="testSieciButton" Content="Testuj sieć" HorizontalAlignment="Center" Margin="11,578,9,0" VerticalAlignment="Top" Width="213" Click="testSieciButton_Click"/>
+                <CheckBox x:Name="czyAproksymacja" Content="Wariant aproksymacji" HorizontalAlignment="Left" Margin="10,263,0,0" VerticalAlignment="Top" Width="212"/>
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="287,10,10,29" Title="Wykres błędu" >
@@ -83,6 +84,5 @@
             </charting:Chart.Series>
         </charting:Chart>
         <Button Content="Pokaż wykresy aproksymacji" HorizontalAlignment="Left" Margin="10,645,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
-        <Button Content="pokaz wyniki" HorizontalAlignment="Left" Margin="10,670,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_1"/>
     </Grid>
 </Window>
