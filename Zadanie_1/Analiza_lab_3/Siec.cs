@@ -34,7 +34,7 @@ namespace Analiza_lab_3
 
         public double LiczEpoka(List<DanaTestowa> dane,string pathTofile,bool czyOstatniaEpoka=false)
         {
-            int counterTrue = 0, counterFalse = 0;
+            int counterTrue1 = 0, counterFalse1 = 0, counterTrue2 = 0, counterTrue3=0, counterFalse2=0, counterFalse3=0;
             string path = @"../../../Logi/wyniki__.txt";
             double blad = 0;
             foreach (var item in dane)
@@ -99,12 +99,35 @@ namespace Analiza_lab_3
                     if (falga == true)
                     {
                         log += "    SUKCES !!!";
-                        counterTrue++;
+                        if(item.Wyjscia[0]==1)
+                        {
+                            counterTrue1++;
+                        }
+                        else if (item.Wyjscia[1] == 1)
+                        {
+                            counterTrue2++;
+                        }
+                        else
+                        {
+                            counterTrue3++;
+                        }
+                        
                     }
                     else
                     {
                         log += "    PORAZKA !!!";
-                        counterFalse++;
+                        if (item.Wyjscia[0] == 1)
+                        {
+                            counterFalse1++;
+                        }
+                        else if (item.Wyjscia[1] == 1)
+                        {
+                            counterFalse2++;
+                        }
+                        else
+                        {
+                            counterFalse3++;
+                        }
                     }
                     File.AppendAllText(path, log + Environment.NewLine);
                 }
@@ -118,7 +141,9 @@ namespace Analiza_lab_3
             }
             if(czyOstatniaEpoka)
             {
-                File.AppendAllText(path, string.Format("Ilosc sukcesow : {0} , Ilosc porazek : {1} , Procent sukcesów : {2}",counterTrue,counterFalse,(double)(counterTrue/(counterTrue+counterFalse*1.0))*100) + Environment.NewLine);
+                string result = string.Format("Sukcesy 1 : {0} , Sukcesy 2 : {1} , Sukcesy 3 : {2} {3} Porazki 1 : {4} , Porazki 2 : {5} , Porazki 3 : {6}", counterTrue1, counterTrue2, counterTrue3, Environment.NewLine, counterFalse1, counterFalse2, counterFalse3);
+                //File.AppendAllText(path, string.Format("Ilosc sukcesow : {0} , Ilosc porazek : {1} , Procent sukcesów : {2}",counterTrue1,counterFalse1,(double)(counterTrue1/(counterTrue1+counterFalse1*1.0))*100) + Environment.NewLine);
+                File.AppendAllText(path, result);
             }
             return blad;
         }
