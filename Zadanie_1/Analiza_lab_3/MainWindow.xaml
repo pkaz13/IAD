@@ -84,5 +84,6 @@
             </charting:Chart.Series>
         </charting:Chart>
         <Button Content="Pokaż wykresy aproksymacji" HorizontalAlignment="Left" Margin="10,645,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click"/>
+        <CheckBox Name="pokazWynikiCheckBox" Content="Wyniki klasyfikacji" HorizontalAlignment="Left" Margin="10,670,0,0" VerticalAlignment="Top" Width="245" IsChecked="True"/>
     </Grid>
 </Window>
