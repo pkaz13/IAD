@@ -194,7 +194,7 @@ namespace Analiza_lab_3
                     {
                         string patha = @"../../../Logi/wyniki__.txt";
                         System.IO.File.Create(patha).Close();
-                        siec.LiczEpoka(DaneTreningowe, path,true);
+                        siec.LiczEpoka(DaneTreningowe, path,false);
                     }
                     File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                     blad = siec.LiczEpoka(DaneTreningowe, path);

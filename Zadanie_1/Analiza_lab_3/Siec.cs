@@ -74,8 +74,7 @@ namespace Analiza_lab_3
                 {
                     bool falga = true;
                     string log = "";
-                    
-                    
+                                      
 
                     for (int i=0;i<item.Wyjscia.Count;i++)
                     {
