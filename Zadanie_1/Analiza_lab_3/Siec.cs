@@ -74,8 +74,7 @@ namespace Analiza_lab_3
                 {
                     bool falga = true;
                     string log = "";
-                    
-                    
+                                      
 
                     for (int i=0;i<item.Wyjscia.Count;i++)
                     {
@@ -89,7 +88,6 @@ namespace Analiza_lab_3
                         {
                             log += wartoscObliczone + ",";
                         }
-                        falga = true;
                         if (Math.Abs(item.Wyjscia[i]-temp[i])>0.1)
                         {
                             falga = false;
@@ -152,8 +150,15 @@ namespace Analiza_lab_3
             return blad;
         }
 
-        public void TestujSiec(List<DanaTestowa> dane, string pathTofile)
+        public void TestujSiec(List<DanaTestowa> dane, string pathTofile,bool czyWynikiKlasyfikacji=false)
         {
+            string pathToMatrix = @"../../../Logi/Macierz_klasyfikacji.txt";
+            int counterTrue1=0, counterTrue2=0, counterTrue3 = 0,counterFalse1_2=0, counterFalse1_3=0, counterFalse2_1=0, counterFalse2_3=0, counterFalse3_1=0, counterFalse3_2=0;
+            if (czyWynikiKlasyfikacji)
+            {              
+                System.IO.File.Create(pathToMatrix).Close();
+            }         
+            
             foreach (var item in dane)
             {
                 string log = "Wartości spodziewane: ";
@@ -181,7 +186,66 @@ namespace Analiza_lab_3
                     log += wartoscObliczone + ",";
                 }
                 File.AppendAllText(pathTofile, log + Environment.NewLine);
+
+                if (czyWynikiKlasyfikacji == true)
+                {
+                    bool flaga = true;
+
+                    for (int i = 0; i < item.Wyjscia.Count; i++)
+                    {                       
+                        if (Math.Abs(item.Wyjscia[i] - temp[i]) > 0.1)
+                        {
+                            flaga = false;
+                        }
+                    }
+                    if (flaga == true)
+                    {
+                        if (item.Wyjscia[0] == 1)
+                        {
+                            counterTrue1++;
+                        }
+                        else if (item.Wyjscia[1] == 1)
+                        {
+                            counterTrue2++;
+                        }
+                        else
+                        {
+                            counterTrue3++;
+                        }
+                    }
+                    else
+                    {
+                        if (item.Wyjscia[0] == 1)
+                        {
+                            if (temp[1] > temp[2])
+                                counterFalse1_2++;
+                            else
+                                counterFalse1_3++;
+                        }
+                        else if (item.Wyjscia[1] == 1)
+                        {
+                            if (temp[0] > temp[2])
+                                counterFalse2_1++;
+                            else
+                                counterFalse2_3++;
+                        }
+                        else
+                        {
+                            if (temp[0] > temp[1])
+                                counterFalse3_1++;
+                            else
+                                counterFalse3_2++;
+                        }
+                    }
+                }
             }
+            StringBuilder result = new StringBuilder();
+            result.AppendLine("        | Klasa 1 | Klasa 2 | Klasa 3");
+            result.AppendLine("--------|----------------------------");
+            result.AppendLine(string.Format("Klasa 1 |   {0}       {1}       {2}  ",counterTrue1,counterFalse1_2,counterFalse1_3));
+            result.AppendLine(string.Format("Klasa 2 |   {0}       {1}       {2}  ", counterFalse2_1, counterTrue2, counterFalse2_3));
+            result.AppendLine(string.Format("Klasa 3 |   {0}       {1}       {2}  ", counterFalse3_1,  counterFalse3_2,counterTrue3));
+            File.AppendAllText(pathToMatrix, result.ToString());
         }
 
         public List<double> TestujSiec2(List<DanaTestowa> dane)

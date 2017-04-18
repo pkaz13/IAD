@@ -194,7 +194,7 @@ namespace Analiza_lab_3
                     {
                         string patha = @"../../../Logi/wyniki__.txt";
                         System.IO.File.Create(patha).Close();
-                        siec.LiczEpoka(DaneTreningowe, path,true);
+                        siec.LiczEpoka(DaneTreningowe, path,false);
                     }
                     File.AppendAllText(path, "-------------------Epoka " + (i + 1) + Environment.NewLine);
                     blad = siec.LiczEpoka(DaneTreningowe, path);
@@ -214,9 +214,10 @@ namespace Analiza_lab_3
 
         private void PrzeprowadzTestSieci()
         {
-            string path = @"../../../Logi/Wynik_testu_sieci.txt";
+            bool czyKlasyfikacja = pokazWynikiCheckBox.IsChecked.Value;
+            string path = @"../../../Logi/Wynik_testu_sieci.txt";           
             System.IO.File.Create(path).Close();
-            siec.TestujSiec(DaneTestowe, path);
+            siec.TestujSiec(DaneTestowe, path,czyKlasyfikacja);
         }
 
         private void serializujSiecButton_Click(object sender, RoutedEventArgs e)
