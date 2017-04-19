@@ -4,11 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Zadanie_2"
         mc:Ignorable="d"
-        Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="800" Width="1200" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
+        Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="818" Width="1448" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
     <Grid>
-        <charting:Chart Name="chart" Title="Nauka" >
+        <GroupBox Margin="10,10,1143,10">
+            <Grid>
+                <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="18" Margin="87,0,87,724"></Label>
+                <Label Content="Ilość neuronów :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,27,693" Minimum="1" Value="1" ></xctk:IntegerUpDown>
+                <Button Content="Start" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="257"/>
+            </Grid>
+        </GroupBox>
+        <charting:Chart Name="chart" Margin="304,0,0,0" >
             <charting:Chart.Axes>
                 <charting:LinearAxis Orientation="Y" ShowGridLines="False"></charting:LinearAxis>
             </charting:Chart.Axes>
