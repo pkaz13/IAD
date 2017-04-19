@@ -1,0 +1,33 @@
+﻿<Window x:Class="Zadanie_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:local="clr-namespace:Zadanie_2"
+        mc:Ignorable="d"
+        Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="800" Width="1200" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
+    <Grid>
+        <charting:Chart Name="chart" Title="Nauka" >
+            <charting:Chart.Axes>
+                <charting:LinearAxis Orientation="Y" ShowGridLines="False"></charting:LinearAxis>
+            </charting:Chart.Axes>
+            <charting:Chart.Series>
+                <charting:ScatterSeries x:Name="seria1" Title="Punkty A"  
+                                    ItemsSource="{Binding}" 
+                                    DependentValueBinding="{Binding Path=Value}" 
+                                    IndependentValueBinding="{Binding Path=Key}"
+                                    IsSelectionEnabled="False"  >
+                    <charting:ScatterSeries.DataPointStyle>
+                        <Style TargetType="{x:Type charting:ScatterDataPoint}">
+                            <Setter Property="Width" Value="10"/>
+                            <Setter Property="Height" Value="10"/>
+                            <Setter Property="Background" Value="Orange" />
+                        </Style>
+                    </charting:ScatterSeries.DataPointStyle>
+                </charting:ScatterSeries>
+
+            </charting:Chart.Series>
+        </charting:Chart>
+    </Grid>
+</Window>
