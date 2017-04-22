@@ -49,7 +49,14 @@ namespace Zadanie_2
             double wspolczynnikNauki = wspolczynnikNaukiCounter.Value.Value;
             string algorytm = algorytmComboBox.SelectedValue.ToString();
             ////////////////////////////
-            Siec = new Siec(iloscNeuronwo, wspolczynnikNauki);
+            if(algorytm== "Kohonen")
+            {
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen);
+            }               
+            else
+            {
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy);
+            }
             Neurony.Clear();
             if(PunktyTreningowe.Count>0)
             {

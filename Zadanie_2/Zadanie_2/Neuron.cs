@@ -8,11 +8,19 @@ namespace Zadanie_2
 {
     public class Neuron
     {
+        public enum RodzajAlgorytmu
+        {
+            Kohonen,
+            GazNeuronowy
+        };
+
         public int IloscWejsc { get; set; }
         public List<double> Wagi { get; set; }
         public double Dystans { get; set; }
         public double DystansDoZwyciezcy { get; set; }
         public double WspolczynnikNauki { get; set; }
+        public RodzajAlgorytmu Algorytm { get; set; }
+
 
 
         public Neuron()
@@ -20,10 +28,11 @@ namespace Zadanie_2
 
         }
 
-        public Neuron(int iloscWejsc,double wspolczynnikNauki)
+        public Neuron(int iloscWejsc,double wspolczynnikNauki, RodzajAlgorytmu rodzaj)
         {
             IloscWejsc = iloscWejsc;
             WspolczynnikNauki = wspolczynnikNauki;
+            Algorytm = rodzaj;
             Wagi = new List<double>(iloscWejsc);
             for (int i = 0; i < Wagi.Capacity; i++)
             {
