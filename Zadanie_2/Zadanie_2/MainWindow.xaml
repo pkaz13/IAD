@@ -11,10 +11,19 @@
     <Grid>
         <GroupBox Margin="10,10,1143,10">
             <Grid>
-                <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="18" Margin="87,0,87,724"></Label>
+                <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="16" Margin="10,0,10,719" Width="257" HorizontalContentAlignment="Center"/>
                 <Label Content="Ilość neuronów :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,27,693" Minimum="1" Value="1" ></xctk:IntegerUpDown>
-                <Button Content="Start" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="257"/>
+                <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,27,684" Minimum="1" Value="1" ></xctk:IntegerUpDown>
+                <Button x:Name="startButton" Content="Start" HorizontalAlignment="Left" Margin="10,662,0,0" VerticalAlignment="Top" Width="257" Height="43" Click="startButton_Click"/>
+                <Label Content="Ilość epok :" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,27,644" Minimum="1" Value="50" />
+                <Label Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,27,604" Minimum="0" Value="0.01" />
+                <Label Content="Wybór alogrytmu" HorizontalAlignment="Left" FontWeight="Black" FontSize="16" Margin="10,182,10,534" Width="257" HorizontalContentAlignment="Center"/>
+                <ComboBox x:Name="algorytmComboBox" HorizontalAlignment="Left" Margin="10,234,0,0" VerticalAlignment="Top" Width="257" Height="26"/>
+                <TextBlock x:Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="127,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontStyle="Italic" Height="20"/>
+                <Button x:Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top" Width="99" Click="selectFileButton_Click" Height="26"/>
+                <Label Content="Wczytywanie pliku :" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="304,0,0,0" >
@@ -22,7 +31,20 @@
                 <charting:LinearAxis Orientation="Y" ShowGridLines="False"></charting:LinearAxis>
             </charting:Chart.Axes>
             <charting:Chart.Series>
-                <charting:ScatterSeries x:Name="seria1" Title="Punkty A"  
+                <charting:ScatterSeries x:Name="seria1" Title="Punkty treningowe"  
+                                    ItemsSource="{Binding}" 
+                                    DependentValueBinding="{Binding Path=Value}" 
+                                    IndependentValueBinding="{Binding Path=Key}"
+                                    IsSelectionEnabled="False"  >
+                    <charting:ScatterSeries.DataPointStyle>
+                        <Style TargetType="{x:Type charting:ScatterDataPoint}">
+                            <Setter Property="Width" Value="5"/>
+                            <Setter Property="Height" Value="5"/>
+                            <Setter Property="Background" Value="Orange" />
+                        </Style>
+                    </charting:ScatterSeries.DataPointStyle>
+                </charting:ScatterSeries>
+                <charting:ScatterSeries x:Name="seria2" Title="Neurony"  
                                     ItemsSource="{Binding}" 
                                     DependentValueBinding="{Binding Path=Value}" 
                                     IndependentValueBinding="{Binding Path=Key}"
@@ -31,7 +53,7 @@
                         <Style TargetType="{x:Type charting:ScatterDataPoint}">
                             <Setter Property="Width" Value="10"/>
                             <Setter Property="Height" Value="10"/>
-                            <Setter Property="Background" Value="Orange" />
+                            <Setter Property="Background" Value="Red" />
                         </Style>
                     </charting:ScatterSeries.DataPointStyle>
                 </charting:ScatterSeries>

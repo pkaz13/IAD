@@ -10,15 +10,20 @@ namespace Zadanie_2
     {
         public int IloscWejsc { get; set; }
         public List<double> Wagi { get; set; }
+        public double Dystans { get; set; }
+        public double DystansDoZwyciezcy { get; set; }
+        public double WspolczynnikNauki { get; set; }
+
 
         public Neuron()
         {
 
         }
 
-        public Neuron(int iloscWejsc)
+        public Neuron(int iloscWejsc,double wspolczynnikNauki)
         {
             IloscWejsc = iloscWejsc;
+            WspolczynnikNauki = wspolczynnikNauki;
             Wagi = new List<double>(iloscWejsc);
             for (int i = 0; i < Wagi.Capacity; i++)
             {
@@ -26,5 +31,34 @@ namespace Zadanie_2
                 Wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
             }
         }
+
+        public double LiczDystansDoWejscia(double[] wejscia)
+        {
+            double dystans = 0;
+            for (int i = 0; i < Wagi.Count; i++)
+            {
+                dystans += (Wagi[i] - wejscia[i]) * (Wagi[i] - wejscia[i]);
+            }
+            Dystans= Math.Sqrt(dystans);
+            return Dystans;
+        }
+
+        public double LiczDystansDoZwyciezcy(double[] wagiZwyciezcy)
+        {
+            double dystans = 0;
+            for (int i = 0; i < Wagi.Count; i++)
+            {
+                dystans += (Wagi[i] - wagiZwyciezcy[i]) * (Wagi[i] - wagiZwyciezcy[i]);
+            }
+            DystansDoZwyciezcy = Math.Sqrt(dystans);
+            return DystansDoZwyciezcy;
+        }
+
+        public void ZmianaWag()
+        {
+
+        }
+
     }
-}
+    }
+

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,17 +23,97 @@ namespace Zadanie_2
     /// </summary>
     public partial class MainWindow : Window
     {
-        ObservableCollection<KeyValuePair<double, double>> Seria1 = new ObservableCollection<KeyValuePair<double, double>>();
+        ObservableCollection<KeyValuePair<double, double>> PunktyTreningowe = new ObservableCollection<KeyValuePair<double, double>>();
+        ObservableCollection<KeyValuePair<double, double>> Neurony = new ObservableCollection<KeyValuePair<double, double>>();
         public static Random random = new Random();
+        public string FilePath { get; set; }
+        public Siec Siec { get; set; }
 
 
         public MainWindow()
         {        
             InitializeComponent();
-            seria1.DataContext = Seria1;
-            for (int i = 0; i < 10; i++)
+            algorytmComboBox.Items.Add("Kohonen");
+            algorytmComboBox.Items.Add("Gaz neuronowy");
+            algorytmComboBox.SelectedIndex = 0;
+
+            seria1.DataContext = PunktyTreningowe;
+            seria2.DataContext = Neurony;
+        }
+
+        private void startButton_Click(object sender, RoutedEventArgs e)
+        {
+            //////////WCZYTYWANIE DANYCH
+            int iloscEpok = iloscEpokCounter.Value.Value;
+            int iloscNeuronwo = iloscNeuronowCounter.Value.Value;
+            double wspolczynnikNauki = wspolczynnikNaukiCounter.Value.Value;
+            string algorytm = algorytmComboBox.SelectedValue.ToString();
+            ////////////////////////////
+            Siec = new Siec(iloscNeuronwo, wspolczynnikNauki);
+            Neurony.Clear();
+            if(PunktyTreningowe.Count>0)
             {
-                Seria1.Add(new KeyValuePair<double, double>(i, i));
+                foreach (var item in Siec.Neurony)
+                {
+                    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                }
+            }
+            else
+            {
+                string messageBoxText = "Brak punktów treningowych";
+                string caption = "Błąd";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+                Debug.WriteLine("Brak punktow treningowych");
+            }
+
+        }
+
+        private void selectFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Title = "Select file with data";
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                FilePath = openFileDialog1.FileName;
+                selectedFileTextBox.Text = System.IO.Path.GetFileName(FilePath);
+                WczytajDane();
+            }
+        }
+
+        private void WczytajDane()
+        {
+            try
+            {
+                PunktyTreningowe.Clear();
+                string[] lines = System.IO.File.ReadAllLines(FilePath);
+                foreach (var line in lines)
+                {
+                    var temp = line.Replace(",", ";");
+                    temp = temp.Replace(".", ",");
+                    var numbers = temp.Split(new Char[] { ';', ' ' }).Select(double.Parse).ToList();
+                    if (numbers.Count == 2)
+                    {
+                        PunktyTreningowe.Add(new KeyValuePair<double, double>(numbers[0], numbers[1]));
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string messageBoxText = "Błędny format pliku";
+                string caption = "Problem z plikiem";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+                Debug.WriteLine("Error during reading from file " + ex);
+
             }
         }
     }
