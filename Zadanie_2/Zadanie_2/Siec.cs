@@ -13,6 +13,7 @@ namespace Zadanie_2
         public RodzajAlgorytmu Rodzaj { get; set; }
         public double WspolczynnikZmianyNauki { get; set; } = 0.999999;
         public double WspolczynnikZmianyPromienia { get; set; } = 0.9;
+        public double  PromienSasiedztwa { get; set; }
 
         public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj)
         {
@@ -27,7 +28,7 @@ namespace Zadanie_2
         public double LiczEpoka(List<KeyValuePair<double,double>> punkty)
         {
             double bladKwantyzacji = 0;
-            int idWygranego;
+            int idWygranego=0;
             foreach (var item in punkty)
             {
                 if(Rodzaj==RodzajAlgorytmu.Kohonen)
@@ -38,18 +39,19 @@ namespace Zadanie_2
                 {
                     idWygranego = GazNeuronowyZnajdzZwyciezce(item);
                 }
-                ////tu zmiana wag !!!
+                ZmianaWag(idWygranego);
                 foreach (var neuron in Neurony)
                 {
                     neuron.WspolczynnikNauki *= WspolczynnikZmianyNauki;
-                    ///tu zmiana promienia !!!
                 }
-               
+                PromienSasiedztwa *= WspolczynnikZmianyPromienia;
+
+
             }
             return bladKwantyzacji;   
         }
 
-        public int KohonenZnajdzZwyciezce(KeyValuePair<double, double> punkt)
+        private int KohonenZnajdzZwyciezce(KeyValuePair<double, double> punkt)
         {
             int idWygrany = Neurony[0].Id;
             for (int i = 0; i < Neurony.Count; i++)
@@ -64,14 +66,38 @@ namespace Zadanie_2
             return idWygrany;
         }
 
-        public int GazNeuronowyZnajdzZwyciezce(KeyValuePair<double, double> punkt)
+        private int GazNeuronowyZnajdzZwyciezce(KeyValuePair<double, double> punkt)
         {
             for (int i = 0; i < Neurony.Count; i++)
             {
                 Neurony[i].LiczDystansDoWejscia(punkt);
             }
-            var sortedNeurons=Neurony.OrderByDescending(x => x.Dystans);
-            return sortedNeurons.First().Id;
+            Neurony = Neurony.OrderByDescending(x => x.Dystans).ToList();
+            Neurony.First().CzyWygrany = true;
+            return Neurony.First().Id;
+        }
+
+        private void ZmianaWag(int wygranyId)
+        {
+            if(Rodzaj==RodzajAlgorytmu.Kohonen)
+            {
+                foreach (var neuron in Neurony)
+                {
+                    neuron.LiczDystansDoZwyciezcy(Neurony.FirstOrDefault(x => x.Id == wygranyId).Wagi);
+                    if (neuron.DystansDoZwyciezcy <= PromienSasiedztwa)
+                    {
+                        neuron.ZmianaWag(PromienSasiedztwa);
+                    }
+                }
+            }
+            else
+            {
+                for(int i=0;i<Neurony.Count;i++)
+                {
+                    Neurony[i].ZmianaWag(PromienSasiedztwa, i);
+                }
+            }
+            Neurony.FirstOrDefault(x => x.Id == wygranyId).CzyWygrany = false;
         }
     }
 

@@ -60,6 +60,15 @@ namespace Zadanie_2
             Neurony.Clear();
             if(PunktyTreningowe.Count>0)
             {
+                //foreach (var item in Siec.Neurony)
+                //{
+                //    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                //}
+                for (int i = 0; i < iloscEpok; i++)
+                {
+                    Siec.LiczEpoka(PunktyTreningowe.ToList());
+                }
+                Neurony.Clear();
                 foreach (var item in Siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));

@@ -22,6 +22,7 @@ namespace Zadanie_2
         public double WspolczynnikNauki { get; set; }
         public RodzajAlgorytmu Algorytm { get; set; }
         public bool CzyWygrany { get; set; } = false;
+        public double[] Wejscia { get; set; }
 
 
 
@@ -46,16 +47,17 @@ namespace Zadanie_2
 
         public double LiczDystansDoWejscia(KeyValuePair<double, double> punkt)
         {
+            Wejscia = new double[] { punkt.Key, punkt.Value };
             double dystans = 0;
             for (int i = 0; i < Wagi.Count; i++)
             {
-                dystans += (Wagi[i] - punkt.Key) * (Wagi[i] - punkt.Value);
+                dystans += (Wagi[i] - Wejscia[i]) * (Wagi[i] - Wejscia[i]);
             }
             Dystans= Math.Sqrt(dystans);
             return Dystans;
         }
 
-        public double LiczDystansDoZwyciezcy(double[] wagiZwyciezcy)
+        public double LiczDystansDoZwyciezcy(List<double> wagiZwyciezcy)
         {
             double dystans = 0;
             for (int i = 0; i < Wagi.Count; i++)
@@ -66,9 +68,28 @@ namespace Zadanie_2
             return DystansDoZwyciezcy;
         }
 
-        public void ZmianaWag()
+        public void ZmianaWag(double radius,int numerWKolejce=0)
         {
-
+            double neigbourhoodFunction;
+            if (CzyWygrany)
+            {
+                neigbourhoodFunction = 1;
+            }
+            else
+            {
+                if(Algorytm==RodzajAlgorytmu.Kohonen)
+                {
+                    neigbourhoodFunction = Math.Exp(-1 * ((DystansDoZwyciezcy * DystansDoZwyciezcy) / (2 * radius * radius)));
+                }
+                else
+                {
+                    neigbourhoodFunction = Math.Exp(-1 * (numerWKolejce / radius));
+                }
+            }
+            for (int i = 0; i < Wagi.Count; i++)
+            {
+                Wagi[i] += WspolczynnikNauki * neigbourhoodFunction * (Wejscia[i] - Wagi[i]);
+            }
         }
 
     }
