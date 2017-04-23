@@ -50,14 +50,15 @@ namespace Zadanie_2
             string algorytm = algorytmComboBox.SelectedValue.ToString();
             int losowanieWagOd = losowanieWagDoCounter.Value.Value;
             int losowanieWagDo = losowanieWagDoCounter.Value.Value;
+            bool czyZmeczenie = zmeczenieCheckBox.IsChecked.Value;
             ////////////////////////////
             if(algorytm== "Kohonen")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo, czyZmeczenie);
             }               
             else
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy,losowanieWagOd, losowanieWagDo);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy,losowanieWagOd, losowanieWagDo, czyZmeczenie);
             }
             Neurony.Clear();
             if(PunktyTreningowe.Count>0)
@@ -69,6 +70,15 @@ namespace Zadanie_2
                 for (int i = 0; i < iloscEpok; i++)
                 {
                     Siec.LiczEpoka(PunktyTreningowe.ToList());
+                    //if(i%10==0)
+                    //{
+                    //    Neurony.Clear();
+                    //    foreach (var item in Siec.Neurony)
+                    //    {
+                    //        Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                    //    }
+                    //    break;
+                    //}
                 }
                 Neurony.Clear();
                 foreach (var item in Siec.Neurony)

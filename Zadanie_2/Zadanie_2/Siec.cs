@@ -14,14 +14,16 @@ namespace Zadanie_2
         public double WspolczynnikZmianyNauki { get; set; } = 0.999999;
         public double WspolczynnikZmianyPromienia { get; set; } = 0.9;
         public double PromienSasiedztwa { get; set; } = 2;
+        public bool CzyZmeczenie { get; set; }
 
-        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo)
+        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,bool czyMeczenie=false)
         {
             Rodzaj = rodzaj;
             Neurony = new List<Neuron>();
-            for(int i=0;i<iloscNeuronow;i++)
+            CzyZmeczenie = czyMeczenie;
+            for (int i=0;i<iloscNeuronow;i++)
             {
-                Neurony.Add(new Neuron(2, wspolczynnikNauki,rodzaj,i,losowanieOd,losowanieDo));
+                Neurony.Add(new Neuron(2, wspolczynnikNauki,rodzaj,i,losowanieOd,losowanieDo, CzyZmeczenie));
             }
         }
 

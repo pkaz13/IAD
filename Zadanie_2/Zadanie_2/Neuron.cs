@@ -24,6 +24,8 @@ namespace Zadanie_2
         public bool CzyWygrany { get; set; } = false;
         public bool CzyZmeczony { get; set; }
         public double[] Wejscia { get; set; }
+
+        public bool AktywneMeczenie { get; set; } = false;
         public double Potencjal { get; set; } = 1;
         public double ZmianaPotencjalu { get; set; } = 0.75;
 
@@ -34,9 +36,10 @@ namespace Zadanie_2
 
         }
 
-        public Neuron(int iloscWejsc,double wspolczynnikNauki, RodzajAlgorytmu rodzaj,int id, int losowanieOd, int losowanieDo)
+        public Neuron(int iloscWejsc,double wspolczynnikNauki, RodzajAlgorytmu rodzaj,int id, int losowanieOd, int losowanieDo,bool czyMeczenie=false)
         {
             Id = id;
+            AktywneMeczenie = czyMeczenie;
             IloscWejsc = iloscWejsc;
             WspolczynnikNauki = wspolczynnikNauki;
             Algorytm = rodzaj;
@@ -73,9 +76,8 @@ namespace Zadanie_2
 
         public void ZmianaWag(int iloscNeuronow,double radius,int numerWKolejce=0)
         {
-            if(CzyZmeczony==true)
+            if(AktywneMeczenie && CzyZmeczony ==true)
             {
-                Potencjal += 1.0 / iloscNeuronow;
                 if(Potencjal>ZmianaPotencjalu)
                 {
                     CzyZmeczony = false;
@@ -85,15 +87,21 @@ namespace Zadanie_2
             if (CzyWygrany)
             {
                 neigbourhoodFunction = 1;
-                Potencjal -= ZmianaPotencjalu;
-                if(Potencjal< ZmianaPotencjalu)
+                if (AktywneMeczenie)
                 {
-                    CzyZmeczony = true;
+                    Potencjal -= ZmianaPotencjalu;
+                    if (Potencjal < ZmianaPotencjalu)
+                    {
+                        CzyZmeczony = true;
+                    }
                 }
             }
             else
             {
-                if(Algorytm==RodzajAlgorytmu.Kohonen)
+                if(AktywneMeczenie && Potencjal<1)
+                    Potencjal += 1.0 / iloscNeuronow;
+
+                if (Algorytm==RodzajAlgorytmu.Kohonen)
                 {
                     neigbourhoodFunction = Math.Exp(-1 * ((DystansDoZwyciezcy * DystansDoZwyciezcy) / (2 * radius * radius)));
                 }
