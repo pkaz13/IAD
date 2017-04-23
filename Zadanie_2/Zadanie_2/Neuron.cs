@@ -22,7 +22,10 @@ namespace Zadanie_2
         public double WspolczynnikNauki { get; set; }
         public RodzajAlgorytmu Algorytm { get; set; }
         public bool CzyWygrany { get; set; } = false;
+        public bool CzyZmeczony { get; set; }
         public double[] Wejscia { get; set; }
+        public double Potencjal { get; set; } = 1;
+        public double ZmianaPotencjalu { get; set; } = 0.75;
 
 
 
@@ -31,7 +34,7 @@ namespace Zadanie_2
 
         }
 
-        public Neuron(int iloscWejsc,double wspolczynnikNauki, RodzajAlgorytmu rodzaj,int id)
+        public Neuron(int iloscWejsc,double wspolczynnikNauki, RodzajAlgorytmu rodzaj,int id, int losowanieOd, int losowanieDo)
         {
             Id = id;
             IloscWejsc = iloscWejsc;
@@ -41,7 +44,7 @@ namespace Zadanie_2
             for (int i = 0; i < Wagi.Capacity; i++)
             {
 
-                Wagi.Add(MainWindow.random.NextDouble() * 2.0 - 1);
+                Wagi.Add(MainWindow.random.NextDouble()* (Math.Abs(losowanieOd)+Math.Abs(losowanieDo)) - losowanieOd);
             }
         }
 
@@ -68,12 +71,25 @@ namespace Zadanie_2
             return DystansDoZwyciezcy;
         }
 
-        public void ZmianaWag(double radius,int numerWKolejce=0)
+        public void ZmianaWag(int iloscNeuronow,double radius,int numerWKolejce=0)
         {
+            if(CzyZmeczony==true)
+            {
+                Potencjal += 1.0 / iloscNeuronow;
+                if(Potencjal>ZmianaPotencjalu)
+                {
+                    CzyZmeczony = false;
+                }
+            }
             double neigbourhoodFunction;
             if (CzyWygrany)
             {
                 neigbourhoodFunction = 1;
+                Potencjal -= ZmianaPotencjalu;
+                if(Potencjal< ZmianaPotencjalu)
+                {
+                    CzyZmeczony = true;
+                }
             }
             else
             {

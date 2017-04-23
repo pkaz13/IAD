@@ -48,14 +48,16 @@ namespace Zadanie_2
             int iloscNeuronwo = iloscNeuronowCounter.Value.Value;
             double wspolczynnikNauki = wspolczynnikNaukiCounter.Value.Value;
             string algorytm = algorytmComboBox.SelectedValue.ToString();
+            int losowanieWagOd = losowanieWagDoCounter.Value.Value;
+            int losowanieWagDo = losowanieWagDoCounter.Value.Value;
             ////////////////////////////
             if(algorytm== "Kohonen")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo);
             }               
             else
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy,losowanieWagOd, losowanieWagDo);
             }
             Neurony.Clear();
             if(PunktyTreningowe.Count>0)

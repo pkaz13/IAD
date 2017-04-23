@@ -16,7 +16,7 @@
                 <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,27,684" Minimum="1" Value="1" ></xctk:IntegerUpDown>
                 <Button x:Name="startButton" Content="Start" HorizontalAlignment="Left" Margin="10,662,0,0" VerticalAlignment="Top" Width="257" Height="43" Click="startButton_Click"/>
                 <Label Content="Ilość epok :" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,27,644" Minimum="1" Value="50" />
+                <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,27,644" Minimum="0" Value="50" />
                 <Label Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,27,604" Minimum="0" Value="0.01" />
                 <Label Content="Wybór alogrytmu" HorizontalAlignment="Left" FontWeight="Black" FontSize="16" Margin="10,182,10,534" Width="257" HorizontalContentAlignment="Center"/>
@@ -24,6 +24,11 @@
                 <TextBlock x:Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="127,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontStyle="Italic" Height="20"/>
                 <Button x:Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="10,343,0,0" VerticalAlignment="Top" Width="99" Click="selectFileButton_Click" Height="26"/>
                 <Label Content="Wczytywanie pliku :" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>
+                <Label Content="Dodatkowe parametry :" HorizontalAlignment="Left" Margin="10,396,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>
+                <Label Content="Losowanie wag od :" HorizontalAlignment="Left" Margin="10,432,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:IntegerUpDown x:Name="losowanieWagOdCounter" Margin="173,432,27,299" Minimum="-50" Value="-1" />
+                <Label Content="Losowanie wag do :" HorizontalAlignment="Left" Margin="10,469,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:IntegerUpDown x:Name="losowanieWagDoCounter" Margin="173,469,27,262" Minimum="-50" Value="1" />
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="304,0,0,0" >
