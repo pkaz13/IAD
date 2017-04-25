@@ -53,6 +53,7 @@ namespace Zadanie_2
             int losowanieWagDo = losowanieWagDoCounter.Value.Value;
             bool czyZmeczenie = zmeczenieCheckBox.IsChecked.Value;
             ////////////////////////////
+            double blad = 0;
             if(algorytm== "Kohonen")
             {
                 Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo, czyZmeczenie);
@@ -66,13 +67,14 @@ namespace Zadanie_2
                 SiecK_Srednie siec= new SiecK_Srednie(iloscNeuronwo, losowanieWagOd, losowanieWagDo);
                 for (int i = 0; i < iloscEpok; i++)
                 {
-                    siec.LiczEpoka(PunktyTreningowe.ToList());
+                    blad=siec.LiczEpoka(PunktyTreningowe.ToList());
                 }
                 Neurony.Clear();
                 foreach (var item in siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                 }
+                bladLabel.Content = blad.ToString();
                 return;
             }
             Neurony.Clear();
