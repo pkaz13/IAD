@@ -20,7 +20,7 @@
                 <Label Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,27,604" Minimum="0" Value="0.01" />
                 <Label Content="Wybór alogrytmu" HorizontalAlignment="Left" FontWeight="Black" FontSize="16" Margin="12,262,0,455" Width="257" HorizontalContentAlignment="Center"/>
-                <ComboBox x:Name="algorytmComboBox" HorizontalAlignment="Left" Margin="12,314,0,0" VerticalAlignment="Top" Width="257" Height="26"/>
+                <ComboBox x:Name="algorytmComboBox" HorizontalAlignment="Left" Margin="12,314,0,0" VerticalAlignment="Top" Width="257" Height="26" SelectionChanged="algorytmComboBox_SelectionChanged"/>
                 <TextBlock x:Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="129,426,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontStyle="Italic" Height="20"/>
                 <Button x:Name="selectFileButton" Content="Select File" HorizontalAlignment="Left" Margin="12,422,0,0" VerticalAlignment="Top" Width="99" Click="selectFileButton_Click" Height="26"/>
                 <Label Content="Wczytywanie pliku :" HorizontalAlignment="Left" Margin="12,366,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>

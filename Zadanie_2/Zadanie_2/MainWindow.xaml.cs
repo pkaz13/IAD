@@ -35,6 +35,7 @@ namespace Zadanie_2
             InitializeComponent();
             algorytmComboBox.Items.Add("Kohonen");
             algorytmComboBox.Items.Add("Gaz neuronowy");
+            algorytmComboBox.Items.Add("K-średnie");
             algorytmComboBox.SelectedIndex = 0;
 
             seria1.DataContext = PunktyTreningowe;
@@ -56,9 +57,23 @@ namespace Zadanie_2
             {
                 Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo, czyZmeczenie);
             }               
-            else
+            else if(algorytm== "Gaz neuronowy")
             {
                 Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy,losowanieWagOd, losowanieWagDo, czyZmeczenie);
+            }
+            else
+            {
+                SiecK_Srednie siec= new SiecK_Srednie(iloscNeuronwo, losowanieWagOd, losowanieWagDo);
+                for (int i = 0; i < iloscEpok; i++)
+                {
+                    siec.LiczEpoka(PunktyTreningowe.ToList());
+                }
+                Neurony.Clear();
+                foreach (var item in siec.Neurony)
+                {
+                    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                }
+                return;
             }
             Neurony.Clear();
             if(PunktyTreningowe.Count>0)
@@ -70,15 +85,6 @@ namespace Zadanie_2
                 for (int i = 0; i < iloscEpok; i++)
                 {
                     Siec.LiczEpoka(PunktyTreningowe.ToList());
-                    //if(i%10==0)
-                    //{
-                    //    Neurony.Clear();
-                    //    foreach (var item in Siec.Neurony)
-                    //    {
-                    //        Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
-                    //    }
-                    //    break;
-                    //}
                 }
                 Neurony.Clear();
                 foreach (var item in Siec.Neurony)
@@ -141,6 +147,18 @@ namespace Zadanie_2
                 MessageBoxImage icon = MessageBoxImage.Error;
                 MessageBox.Show(messageBoxText, caption, button, icon);
                 Debug.WriteLine("Error during reading from file " + ex);
+
+            }
+        }
+
+        private void algorytmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(algorytmComboBox.SelectedValue.ToString()== "K-średnie")
+            {
+
+            }
+            else
+            {
 
             }
         }

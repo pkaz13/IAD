@@ -11,7 +11,7 @@ namespace Zadanie_2
         public enum RodzajAlgorytmu
         {
             Kohonen,
-            GazNeuronowy
+            GazNeuronowy,
         };
 
         public int Id { get; set; }

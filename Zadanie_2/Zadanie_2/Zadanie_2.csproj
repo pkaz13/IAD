@@ -84,7 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NeuronK_Srednie.cs" />
     <Compile Include="Siec.cs" />
+    <Compile Include="SiecK_Srednie.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
