@@ -9,6 +9,7 @@ namespace Zadanie_2
     public class SiecK_Srednie
     {
         public List<NeuronK_Srednie> Neurony { get; set; }
+        public double Blad { get; set; } = 0;
 
         public SiecK_Srednie(int iloscNeuronow, int losowanieOd, int losowanieDo)
         {
@@ -21,15 +22,14 @@ namespace Zadanie_2
 
         public double LiczEpoka(List<KeyValuePair<double, double>> punkty)
         {
-            double blad = 0;
+            Blad = 0;
             ZnajdzPolaczenie(punkty);
             ZmienWagi();
             for (int i = 0; i < Neurony.Count(); i++)
             {
                 Neurony[i].PunktyNalezace.Clear();
-                blad += Neurony[i].Dystans;
             }
-            return blad*1.0 / Neurony.Count();
+            return Blad * 1.0 / punkty.Count();
         }
 
         public void ZnajdzPolaczenie(List<KeyValuePair<double, double>> punkty)
@@ -45,6 +45,7 @@ namespace Zadanie_2
                         neuronId = neuron.Id;
                     }
                 }
+                Blad += Neurony.FirstOrDefault(x => x.Id == neuronId).Dystans;
                 Neurony.FirstOrDefault(x => x.Id == neuronId).PunktyNalezace.Add(punkt);
             }
         }

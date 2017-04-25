@@ -17,7 +17,7 @@
                 <Button x:Name="startButton" Content="Start" HorizontalAlignment="Left" Margin="10,662,0,0" VerticalAlignment="Top" Width="257" Height="43" Click="startButton_Click"/>
                 <Label Content="Ilość epok :" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,27,644" Minimum="0" Value="50" />
-                <Label Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <Label Name="wspolczynnikLabel" Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,27,604" Minimum="0" Value="0.01" />
                 <Label Content="Wybór alogrytmu" HorizontalAlignment="Left" FontWeight="Black" FontSize="16" Margin="10,204,0,513" Width="257" HorizontalContentAlignment="Center"/>
                 <ComboBox x:Name="algorytmComboBox" HorizontalAlignment="Left" Margin="8,255,0,0" VerticalAlignment="Top" Width="257" Height="26" SelectionChanged="algorytmComboBox_SelectionChanged"/>
@@ -30,7 +30,7 @@
                 <Label Content="Losowanie wag do :" HorizontalAlignment="Left" Margin="10,483,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:IntegerUpDown x:Name="losowanieWagDoCounter" Margin="173,483,27,248" Minimum="-50" Value="1" />
                 <CheckBox x:Name="zmeczenieCheckBox" Content="" HorizontalAlignment="Left" Margin="173,175,0,0" VerticalAlignment="Top" Width="77"/>
-                <Label Content="Zmęczenie neuronu :" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <Label Name="zmeczenieLabel" Content="Zmęczenie neuronu :" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <Label Content="Błąd kwantyzacji :" HorizontalAlignment="Left" Margin="10,585,0,0" VerticalAlignment="Top" Width="110"/>
                 <Label x:Name="bladLabel" Content="" HorizontalAlignment="Left" Margin="130,585,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,-0.308" Width="120" FontWeight="Bold"/>
             </Grid>

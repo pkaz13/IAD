@@ -86,13 +86,14 @@ namespace Zadanie_2
                 //}
                 for (int i = 0; i < iloscEpok; i++)
                 {
-                    Siec.LiczEpoka(PunktyTreningowe.ToList());
+                    blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
                 }
                 Neurony.Clear();
                 foreach (var item in Siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                 }
+                bladLabel.Content = blad.ToString();
             }
             else
             {
@@ -157,11 +158,17 @@ namespace Zadanie_2
         {
             if(algorytmComboBox.SelectedValue.ToString()== "K-średnie")
             {
-
+                wspolczynnikNaukiCounter.Visibility = Visibility.Collapsed;
+                zmeczenieCheckBox.Visibility = Visibility.Collapsed;
+                zmeczenieLabel.Visibility = Visibility.Collapsed;
+                wspolczynnikLabel.Visibility = Visibility.Collapsed;
             }
             else
             {
-
+                wspolczynnikNaukiCounter.Visibility = Visibility.Visible;
+                zmeczenieCheckBox.Visibility = Visibility.Visible;
+                zmeczenieLabel.Visibility = Visibility.Visible;
+                wspolczynnikLabel.Visibility = Visibility.Visible;
             }
         }
     }

@@ -15,6 +15,7 @@ namespace Zadanie_2
         public double WspolczynnikZmianyPromienia { get; set; } = 0.9;
         public double PromienSasiedztwa { get; set; } = 2;
         public bool CzyZmeczenie { get; set; }
+        public double Blad { get; set; } = 0;
 
         public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,bool czyMeczenie=false)
         {
@@ -29,7 +30,7 @@ namespace Zadanie_2
 
         public double LiczEpoka(List<KeyValuePair<double,double>> punkty)
         {
-            double bladKwantyzacji = 0;
+            Blad = 0;
             int idWygranego=0;
             foreach (var item in punkty)
             {
@@ -47,10 +48,8 @@ namespace Zadanie_2
                     neuron.WspolczynnikNauki *= WspolczynnikZmianyNauki;
                 }
                 PromienSasiedztwa *= WspolczynnikZmianyPromienia;
-
-
             }
-            return bladKwantyzacji;   
+            return Blad/punkty.Count;   
         }
 
         private int KohonenZnajdzZwyciezce(KeyValuePair<double, double> punkt)
@@ -64,6 +63,7 @@ namespace Zadanie_2
                     idWygrany = Neurony[i].Id;
                 }
             }
+            Blad += Neurony.FirstOrDefault(x => x.Id == idWygrany).Dystans;
             Neurony.FirstOrDefault(x => x.Id == idWygrany).CzyWygrany = true;
             return idWygrany;
         }
@@ -75,6 +75,7 @@ namespace Zadanie_2
                 Neurony[i].LiczDystansDoWejscia(punkt);
             }
             Neurony = Neurony.OrderBy(x => x.Dystans).ToList();
+            Blad += Neurony.First().Dystans;
             Neurony.First().CzyWygrany = true;
             return Neurony.First().Id;
         }
