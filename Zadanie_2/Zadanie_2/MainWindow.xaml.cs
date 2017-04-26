@@ -28,10 +28,12 @@ namespace Zadanie_2
         public static Random random = new Random();
         public string FilePath { get; set; }
         public Siec Siec { get; set; }
+        public SiecK_Srednie SiecK { get; set; }
+        public int IloscEpok { get; set; }
 
 
         public MainWindow()
-        {        
+        {
             InitializeComponent();
             algorytmComboBox.Items.Add("Kohonen");
             algorytmComboBox.Items.Add("Gaz neuronowy");
@@ -44,6 +46,8 @@ namespace Zadanie_2
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
+            SiecK = null;
+            Siec = null;
             //////////WCZYTYWANIE DANYCH
             int iloscEpok = iloscEpokCounter.Value.Value;
             int iloscNeuronwo = iloscNeuronowCounter.Value.Value;
@@ -52,58 +56,44 @@ namespace Zadanie_2
             int losowanieWagOd = losowanieWagDoCounter.Value.Value;
             int losowanieWagDo = losowanieWagDoCounter.Value.Value;
             bool czyZmeczenie = zmeczenieCheckBox.IsChecked.Value;
+            double promien = promienCounter.Value.Value;
+            IloscEpok = iloscEpok;
             ////////////////////////////
             double blad = 0;
-            if(algorytm== "Kohonen")
-            {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo, czyZmeczenie);
-            }               
-            else if(algorytm== "Gaz neuronowy")
-            {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy,losowanieWagOd, losowanieWagDo, czyZmeczenie);
-            }
-            else
-            {
-                SiecK_Srednie siec= new SiecK_Srednie(iloscNeuronwo, losowanieWagOd, losowanieWagDo);
-                for (int i = 0; i < iloscEpok; i++)
-                {
-                    blad=siec.LiczEpoka(PunktyTreningowe.ToList());
-                }
-                Neurony.Clear();
-                foreach (var item in siec.Neurony)
-                {
-                    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
-                }
-                bladLabel.Content = blad.ToString();
-                return;
-            }
             Neurony.Clear();
-            if(PunktyTreningowe.Count>0)
+            seria2.Refresh();
+            bladLabel.Content = "";
+            if (algorytm == "Kohonen")
             {
-                //foreach (var item in Siec.Neurony)
-                //{
-                //    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
-                //}
-                for (int i = 0; i < iloscEpok; i++)
-                {
-                    blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
-                }
-                Neurony.Clear();
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
                 foreach (var item in Siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                 }
-                bladLabel.Content = blad.ToString();
+            }
+            else if (algorytm == "Gaz neuronowy")
+            {
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
+                foreach (var item in Siec.Neurony)
+                {
+                    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                }
             }
             else
             {
-                string messageBoxText = "Brak punktów treningowych";
-                string caption = "Błąd";
-                MessageBoxButton button = MessageBoxButton.OK;
-                MessageBoxImage icon = MessageBoxImage.Error;
-                MessageBox.Show(messageBoxText, caption, button, icon);
-                Debug.WriteLine("Brak punktow treningowych");
+                SiecK = new SiecK_Srednie(iloscNeuronwo, losowanieWagOd, losowanieWagDo);
+                foreach (var item in SiecK.Neurony)
+                {
+                    Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                }
             }
+            string messageBoxText = "Sieć poprawnie utworzona";
+            string caption = "Sukces !!!";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Information;
+            MessageBox.Show(messageBoxText, caption, button, icon);
+            Debug.WriteLine("Siec utworzona");
+
 
         }
 
@@ -156,7 +146,7 @@ namespace Zadanie_2
 
         private void algorytmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(algorytmComboBox.SelectedValue.ToString()== "K-średnie")
+            if (algorytmComboBox.SelectedValue.ToString() == "K-średnie")
             {
                 wspolczynnikNaukiCounter.Visibility = Visibility.Collapsed;
                 zmeczenieCheckBox.Visibility = Visibility.Collapsed;
@@ -170,6 +160,143 @@ namespace Zadanie_2
                 zmeczenieLabel.Visibility = Visibility.Visible;
                 wspolczynnikLabel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void epokaButton_Click(object sender, RoutedEventArgs e)
+        {
+            double blad = 0;
+            if (Siec == null && SiecK == null)
+            {
+                string messageBoxText = "Brak sieci";
+                string caption = "Brak sieci";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+                Debug.WriteLine("Brak sieci");
+                return;
+            }
+            else
+            {
+                if (Siec != null)
+                {
+                    Neurony.Clear();
+                    if (PunktyTreningowe.Count > 0)
+                    {
+
+                        blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
+                        foreach (var item in Siec.Neurony)
+                        {
+                            Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                        }
+                        bladLabel.Content = blad.ToString();
+                    }
+                    else
+                    {
+                        string messageBoxText = "Brak punktów treningowych";
+                        string caption = "Błąd";
+                        MessageBoxButton button = MessageBoxButton.OK;
+                        MessageBoxImage icon = MessageBoxImage.Error;
+                        MessageBox.Show(messageBoxText, caption, button, icon);
+                        Debug.WriteLine("Brak punktow treningowych");
+                    }
+                    return;
+                }
+                else
+                {
+                    Neurony.Clear();
+                    if (PunktyTreningowe.Count > 0)
+                    {
+                        blad = SiecK.LiczEpoka(PunktyTreningowe.ToList());
+                        foreach (var item in SiecK.Neurony)
+                        {
+                            Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                        }
+                        bladLabel.Content = blad.ToString();
+                    }
+                    else
+                    {
+                        string messageBoxText = "Brak punktów treningowych";
+                        string caption = "Błąd";
+                        MessageBoxButton button = MessageBoxButton.OK;
+                        MessageBoxImage icon = MessageBoxImage.Error;
+                        MessageBox.Show(messageBoxText, caption, button, icon);
+                        Debug.WriteLine("Brak punktow treningowych");
+                    }
+                    return;
+                }
+            }
+
+        }
+
+        private void wszystkieEpokiButton_Click(object sender, RoutedEventArgs e)
+        {
+            double blad = 0;
+            if (Siec == null && SiecK == null)
+            {
+                string messageBoxText = "Brak sieci";
+                string caption = "Brak sieci";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+                Debug.WriteLine("Brak sieci");
+                return;
+            }
+            else
+            {
+                if (Siec != null)
+                {
+                    Neurony.Clear();
+                    if (PunktyTreningowe.Count > 0)
+                    {
+                        for (int i = 0; i < IloscEpok; i++)
+                        {
+                            blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
+                        }
+                        foreach (var item in Siec.Neurony)
+                        {
+                            Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                        }
+                        bladLabel.Content = blad.ToString();
+                    }
+                    else
+                    {
+                        string messageBoxText = "Brak punktów treningowych";
+                        string caption = "Błąd";
+                        MessageBoxButton button = MessageBoxButton.OK;
+                        MessageBoxImage icon = MessageBoxImage.Error;
+                        MessageBox.Show(messageBoxText, caption, button, icon);
+                        Debug.WriteLine("Brak punktow treningowych");
+                    }
+                    return;
+                }
+                else
+                {
+                    Neurony.Clear();
+                    if (PunktyTreningowe.Count > 0)
+                    {
+                        for (int i = 0; i < IloscEpok; i++)
+                        {
+                            blad = SiecK.LiczEpoka(PunktyTreningowe.ToList());
+                        }
+                        foreach (var item in SiecK.Neurony)
+                        {
+                            Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
+                        }
+                        bladLabel.Content = blad.ToString();
+                    }
+                    else
+                    {
+                        string messageBoxText = "Brak punktów treningowych";
+                        string caption = "Błąd";
+                        MessageBoxButton button = MessageBoxButton.OK;
+                        MessageBoxImage icon = MessageBoxImage.Error;
+                        MessageBox.Show(messageBoxText, caption, button, icon);
+                        Debug.WriteLine("Brak punktow treningowych");
+                    }
+                    return;
+                }
+            }
+
         }
     }
 }

@@ -11,17 +11,18 @@ namespace Zadanie_2
     {
         public List<Neuron> Neurony { get; set; }
         public RodzajAlgorytmu Rodzaj { get; set; }
-        public double WspolczynnikZmianyNauki { get; set; } = 0.999999;
-        public double WspolczynnikZmianyPromienia { get; set; } = 0.9;
+        public double WspolczynnikZmianyNauki { get; set; } = 0.9999;
+        public double WspolczynnikZmianyPromienia { get; set; } = 0.99;
         public double PromienSasiedztwa { get; set; } = 2;
         public bool CzyZmeczenie { get; set; }
         public double Blad { get; set; } = 0;
 
-        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,bool czyMeczenie=false)
+        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,double promien,bool czyMeczenie=false)
         {
             Rodzaj = rodzaj;
             Neurony = new List<Neuron>();
             CzyZmeczenie = czyMeczenie;
+            PromienSasiedztwa = promien;
             for (int i=0;i<iloscNeuronow;i++)
             {
                 Neurony.Add(new Neuron(2, wspolczynnikNauki,rodzaj,i,losowanieOd,losowanieDo, CzyZmeczenie));
