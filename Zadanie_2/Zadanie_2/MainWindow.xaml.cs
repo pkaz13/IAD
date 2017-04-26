@@ -57,6 +57,8 @@ namespace Zadanie_2
             int losowanieWagDo = losowanieWagDoCounter.Value.Value;
             bool czyZmeczenie = zmeczenieCheckBox.IsChecked.Value;
             double promien = promienCounter.Value.Value;
+            double zmianaPromienia = promienZmianaCounter.Value.Value;
+            double zmianaNauki = naukaZmianaCounter.Value.Value;
             IloscEpok = iloscEpok;
             ////////////////////////////
             double blad = 0;
@@ -66,6 +68,8 @@ namespace Zadanie_2
             if (algorytm == "Kohonen")
             {
                 Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
+                Siec.WspolczynnikZmianyNauki = zmianaNauki;
+                Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
@@ -74,6 +78,8 @@ namespace Zadanie_2
             else if (algorytm == "Gaz neuronowy")
             {
                 Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
+                Siec.WspolczynnikZmianyNauki = zmianaNauki;
+                Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)
                 {
                     Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
@@ -188,6 +194,7 @@ namespace Zadanie_2
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                         }
+                        seria2.Refresh();
                         bladLabel.Content = blad.ToString();
                     }
                     else
@@ -211,6 +218,7 @@ namespace Zadanie_2
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                         }
+                        seria2.Refresh();
                         bladLabel.Content = blad.ToString();
                     }
                     else
@@ -246,6 +254,7 @@ namespace Zadanie_2
                 if (Siec != null)
                 {
                     Neurony.Clear();
+                    
                     if (PunktyTreningowe.Count > 0)
                     {
                         for (int i = 0; i < IloscEpok; i++)
@@ -256,6 +265,7 @@ namespace Zadanie_2
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                         }
+                        seria2.Refresh();
                         bladLabel.Content = blad.ToString();
                     }
                     else
@@ -282,6 +292,7 @@ namespace Zadanie_2
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
                         }
+                        seria2.Refresh();
                         bladLabel.Content = blad.ToString();
                     }
                     else

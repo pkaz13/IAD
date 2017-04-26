@@ -7,18 +7,18 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Zadanie_2"
         mc:Ignorable="d"
-        Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="818" Width="1448" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
+        Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="900" Width="1500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
     <Grid>
         <GroupBox Margin="10,10,1143,10">
             <Grid>
                 <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="16" Margin="10,0,10,719" Width="257" HorizontalContentAlignment="Center"/>
                 <Label Content="Ilość neuronów :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,27,684" Minimum="1" Value="50" ></xctk:IntegerUpDown>
-                <Button x:Name="startButton" Content="Utwórz sieć" HorizontalAlignment="Left" Margin="10,620,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="startButton_Click"/>
+                <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,52,766" Minimum="1" Value="50" ></xctk:IntegerUpDown>
+                <Button x:Name="startButton" Content="Utwórz sieć" HorizontalAlignment="Left" Margin="20,714,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="startButton_Click"/>
                 <Label Content="Ilość epok :" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,27,644" Minimum="0" Value="50" />
+                <xctk:IntegerUpDown x:Name="iloscEpokCounter" Margin="173,84,52,726" Minimum="0" Value="50" />
                 <Label Name="wspolczynnikLabel" Content="Współczynnik nauki :" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,27,604" Minimum="0" Value="0.1" />
+                <xctk:DoubleUpDown x:Name="wspolczynnikNaukiCounter" Margin="173,124,52,688" Minimum="0" Value="0.1" />
                 <Label Content="Wybór alogrytmu" HorizontalAlignment="Left" FontWeight="Black" FontSize="16" Margin="10,204,0,513" Width="257" HorizontalContentAlignment="Center"/>
                 <ComboBox x:Name="algorytmComboBox" HorizontalAlignment="Left" Margin="8,255,0,0" VerticalAlignment="Top" Width="257" Height="26" SelectionChanged="algorytmComboBox_SelectionChanged"/>
                 <TextBlock x:Name="selectedFileTextBox" HorizontalAlignment="Left" Margin="127,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" FontStyle="Italic" Height="20"/>
@@ -26,17 +26,21 @@
                 <Label Content="Wczytywanie pliku :" HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>
                 <Label Content="Dodatkowe parametry :" HorizontalAlignment="Left" Margin="10,410,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Width="257" HorizontalContentAlignment="Center" FontSize="16"/>
                 <Label Content="Losowanie wag od :" HorizontalAlignment="Left" Margin="10,446,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown x:Name="losowanieWagOdCounter" Margin="173,446,27,285" Minimum="-50" Value="-10" />
+                <xctk:IntegerUpDown x:Name="losowanieWagOdCounter" Margin="173,446,52,367" Minimum="-50" Value="-10" />
                 <Label Content="Losowanie wag do :" HorizontalAlignment="Left" Margin="10,483,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:IntegerUpDown x:Name="losowanieWagDoCounter" Margin="173,483,27,248" Minimum="-50" Value="10" />
+                <xctk:IntegerUpDown x:Name="losowanieWagDoCounter" Margin="173,483,52,328" Minimum="-50" Value="10" />
                 <CheckBox x:Name="zmeczenieCheckBox" Content="" HorizontalAlignment="Left" Margin="173,175,0,0" VerticalAlignment="Top" Width="77"/>
                 <Label Name="zmeczenieLabel" Content="Zmęczenie neuronu :" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <Label Content="Błąd kwantyzacji :" HorizontalAlignment="Left" Margin="10,554,0,0" VerticalAlignment="Top" Width="110"/>
-                <Label x:Name="bladLabel" Content="" HorizontalAlignment="Left" Margin="130,554,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,-0.308" Width="120" FontWeight="Bold"/>
-                <Button x:Name="epokaButton" Content="Epoka" HorizontalAlignment="Left" Margin="10,704,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="epokaButton_Click"/>
-                <Button x:Name="wszystkieEpokiButton" Content="Wszystkie Epoki" HorizontalAlignment="Left" Margin="10,662,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="wszystkieEpokiButton_Click"/>
+                <Label Content="Błąd kwantyzacji :" HorizontalAlignment="Left" Margin="20,675,0,0" VerticalAlignment="Top" Width="122"/>
+                <Label x:Name="bladLabel" Content="" HorizontalAlignment="Left" Margin="152,675,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,-0.308" Width="125" FontWeight="Bold"/>
+                <Button x:Name="epokaButton" Content="Epoka" HorizontalAlignment="Left" Margin="20,798,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="epokaButton_Click"/>
+                <Button x:Name="wszystkieEpokiButton" Content="Wszystkie Epoki" HorizontalAlignment="Left" Margin="20,756,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="wszystkieEpokiButton_Click"/>
                 <Label Content="Promień sąsiedztwa :" HorizontalAlignment="Left" Margin="10,522,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:DoubleUpDown x:Name="promienCounter" Margin="173,522,27,209" Minimum="-50" Value="2" />
+                <xctk:DoubleUpDown x:Name="promienCounter" Margin="173,522,52,291" Minimum="-50" Value="2" />
+                <Label Content="Wsp zmiany promienia :" HorizontalAlignment="Left" Margin="10,559,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:DoubleUpDown x:Name="promienZmianaCounter" Margin="173,559,52,254" Minimum="-50" Value="0.999" />
+                <Label Content="Wsp zmiany nauki :" HorizontalAlignment="Left" Margin="10,596,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:DoubleUpDown x:Name="naukaZmianaCounter" Margin="173,596,52,217" Minimum="-50" Value="0.9999" />
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="304,0,0,0" >

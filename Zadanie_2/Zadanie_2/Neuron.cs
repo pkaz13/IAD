@@ -27,7 +27,7 @@ namespace Zadanie_2
 
         public bool AktywneMeczenie { get; set; } = false;
         public double Potencjal { get; set; } = 1;
-        public double ZmianaPotencjalu { get; set; } = 0.75;
+        public double ZmianaPotencjalu { get; set; } = 0.40;
 
 
 
