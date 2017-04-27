@@ -59,6 +59,7 @@ namespace Zadanie_2
             double promien = promienCounter.Value.Value;
             double zmianaPromienia = promienZmianaCounter.Value.Value;
             double zmianaNauki = naukaZmianaCounter.Value.Value;
+            double zmianaPotencjalu = zmianaPotencjaluCounter.Value.Value;
             IloscEpok = iloscEpok;
             ////////////////////////////
             double blad = 0;
@@ -67,7 +68,7 @@ namespace Zadanie_2
             bladLabel.Content = "";
             if (algorytm == "Kohonen")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie,zmianaPotencjalu);
                 Siec.WspolczynnikZmianyNauki = zmianaNauki;
                 Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)
@@ -77,7 +78,7 @@ namespace Zadanie_2
             }
             else if (algorytm == "Gaz neuronowy")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie,zmianaPotencjalu);
                 Siec.WspolczynnikZmianyNauki = zmianaNauki;
                 Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)

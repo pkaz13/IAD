@@ -17,7 +17,7 @@ namespace Zadanie_2
         public bool CzyZmeczenie { get; set; }
         public double Blad { get; set; } = 0;
 
-        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,double promien,bool czyMeczenie=false)
+        public Siec(int iloscNeuronow,double wspolczynnikNauki, RodzajAlgorytmu rodzaj ,int losowanieOd, int losowanieDo,double promien,bool czyMeczenie=false,double zmianaPotencjalu=0.2)
         {
             Rodzaj = rodzaj;
             Neurony = new List<Neuron>();
@@ -25,7 +25,7 @@ namespace Zadanie_2
             PromienSasiedztwa = promien;
             for (int i=0;i<iloscNeuronow;i++)
             {
-                Neurony.Add(new Neuron(2, wspolczynnikNauki,rodzaj,i,losowanieOd,losowanieDo, CzyZmeczenie));
+                Neurony.Add(new Neuron(2, wspolczynnikNauki,rodzaj,i,losowanieOd,losowanieDo, CzyZmeczenie,zmianaPotencjalu));
             }
         }
 
@@ -88,9 +88,17 @@ namespace Zadanie_2
                 foreach (var neuron in Neurony)
                 {
                     neuron.LiczDystansDoZwyciezcy(Neurony.FirstOrDefault(x => x.Id == wygranyId).Wagi);
-                    if (neuron.DystansDoZwyciezcy <= PromienSasiedztwa)
+                    if (neuron.DystansDoZwyciezcy == 0)
                     {
-                        neuron.ZmianaWag(Neurony.Count, PromienSasiedztwa);
+                        neuron.ZmianaWag(true, false, Neurony.Count, PromienSasiedztwa);
+                    }
+                    else if (neuron.DystansDoZwyciezcy <= PromienSasiedztwa)
+                    {
+                        neuron.ZmianaWag(false,true,Neurony.Count, PromienSasiedztwa);
+                    }
+                    else
+                    {
+                        neuron.ZmianaWag(false, false, Neurony.Count, PromienSasiedztwa);
                     }
                 }
             }
@@ -98,7 +106,14 @@ namespace Zadanie_2
             {
                 for(int i=0;i<Neurony.Count;i++)
                 {
-                    Neurony[i].ZmianaWag(Neurony.Count,PromienSasiedztwa, i);
+                    if(i==0)
+                    {
+                        Neurony[i].ZmianaWag(true,false,Neurony.Count, PromienSasiedztwa, i);
+                    }
+                    else
+                    {
+                        Neurony[i].ZmianaWag(false, true, Neurony.Count, PromienSasiedztwa, i);
+                    }
                 }
             }
             Neurony.FirstOrDefault(x => x.Id == wygranyId).CzyWygrany = false;

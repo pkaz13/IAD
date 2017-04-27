@@ -33,7 +33,7 @@
                 <Label Name="zmeczenieLabel" Content="Zmęczenie neuronu :" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <Label Content="Błąd kwantyzacji :" HorizontalAlignment="Left" Margin="20,675,0,0" VerticalAlignment="Top" Width="122"/>
                 <Label x:Name="bladLabel" Content="" HorizontalAlignment="Left" Margin="152,675,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,-0.308" Width="125" FontWeight="Bold"/>
-                <Button x:Name="epokaButton" Content="Epoka" HorizontalAlignment="Left" Margin="20,798,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="epokaButton_Click"/>
+                <Button x:Name="epokaButton" Content="Epoka" HorizontalAlignment="Left" Margin="20,798,0,0" Width="257" Click="epokaButton_Click" Height="42" VerticalAlignment="Top"/>
                 <Button x:Name="wszystkieEpokiButton" Content="Wszystkie Epoki" HorizontalAlignment="Left" Margin="20,756,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="wszystkieEpokiButton_Click"/>
                 <Label Content="Promień sąsiedztwa :" HorizontalAlignment="Left" Margin="10,522,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="promienCounter" Margin="173,522,52,291" Minimum="-50" Value="2" />
@@ -41,6 +41,8 @@
                 <xctk:DoubleUpDown x:Name="promienZmianaCounter" Margin="173,559,52,254" Minimum="-50" Value="0.999" />
                 <Label Content="Wsp zmiany nauki :" HorizontalAlignment="Left" Margin="10,596,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="naukaZmianaCounter" Margin="173,596,52,217" Minimum="-50" Value="0.9999" />
+                <Label Content="Zmiana potencjału :" HorizontalAlignment="Left" Margin="10,633,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
+                <xctk:DoubleUpDown x:Name="zmianaPotencjaluCounter" Margin="173,633,52,180" Minimum="-50" Value="0.2"  />
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="304,0,0,0" >
