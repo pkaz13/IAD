@@ -76,6 +76,15 @@ namespace Zadanie_2
                 Neurony[i].LiczDystansDoWejscia(punkt);
             }
             Neurony = Neurony.OrderBy(x => x.Dystans).ToList();
+            if(Neurony.First().CzyZmeczony==true)
+            {
+                var temp = Neurony.FirstOrDefault(x => x.CzyZmeczony == false);
+                Neurony.Remove(temp);
+                var first = Neurony.First();
+                Neurony.Remove(first);
+                Neurony.Insert(0, temp);
+                Neurony.Add(first);
+            }
             Blad += Neurony.First().Dystans;
             Neurony.First().CzyWygrany = true;
             return Neurony.First().Id;
