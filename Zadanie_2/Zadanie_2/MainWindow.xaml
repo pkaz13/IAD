@@ -9,9 +9,9 @@
         mc:Ignorable="d"
         Title="Rafał Lebioda Piotrk Kaźmierczak - Zadanie 2" Height="900" Width="1500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" >
     <Grid>
-        <GroupBox Margin="10,10,1143,10">
+        <GroupBox Margin="10,10,1143,10" BorderBrush="White">
             <Grid>
-                <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="16" Margin="10,0,10,719" Width="257" HorizontalContentAlignment="Center"/>
+                <Label Content="Parametry" HorizontalAlignment="Center" FontWeight="Black" FontSize="16" Margin="20,0,52,719" Width="257" HorizontalContentAlignment="Center"/>
                 <Label Content="Ilość neuronów :" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:IntegerUpDown Name="iloscNeuronowCounter" Margin="173,44,52,766" Minimum="1" Value="50" ></xctk:IntegerUpDown>
                 <Button x:Name="startButton" Content="Utwórz sieć" HorizontalAlignment="Left" Margin="20,714,0,0" VerticalAlignment="Top" Width="257" Height="37" Click="startButton_Click"/>
