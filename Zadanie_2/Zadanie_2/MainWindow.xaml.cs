@@ -24,6 +24,7 @@ namespace Zadanie_2
     public partial class MainWindow : Window
     {
         ObservableCollection<KeyValuePair<double, double>> PunktyTreningowe = new ObservableCollection<KeyValuePair<double, double>>();
+        List<KeyValuePair<double, double>> Punkty = new List<KeyValuePair<double, double>>();
         ObservableCollection<KeyValuePair<double, double>> Neurony = new ObservableCollection<KeyValuePair<double, double>>();
         public static Random random = new Random();
         public string FilePath { get; set; }
@@ -68,7 +69,7 @@ namespace Zadanie_2
             bladLabel.Content = "";
             if (algorytm == "Kohonen")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie,zmianaPotencjalu);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.Kohonen, losowanieWagOd, losowanieWagDo, promien, czyZmeczenie, zmianaPotencjalu);
                 Siec.WspolczynnikZmianyNauki = zmianaNauki;
                 Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)
@@ -78,7 +79,7 @@ namespace Zadanie_2
             }
             else if (algorytm == "Gaz neuronowy")
             {
-                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo,promien, czyZmeczenie,zmianaPotencjalu);
+                Siec = new Siec(iloscNeuronwo, wspolczynnikNauki, Neuron.RodzajAlgorytmu.GazNeuronowy, losowanieWagOd, losowanieWagDo, promien, czyZmeczenie, zmianaPotencjalu);
                 Siec.WspolczynnikZmianyNauki = zmianaNauki;
                 Siec.WspolczynnikZmianyPromienia = zmianaPromienia;
                 foreach (var item in Siec.Neurony)
@@ -122,6 +123,7 @@ namespace Zadanie_2
         {
             try
             {
+                Punkty.Clear();
                 PunktyTreningowe.Clear();
                 string[] lines = System.IO.File.ReadAllLines(FilePath);
                 foreach (var line in lines)
@@ -131,13 +133,31 @@ namespace Zadanie_2
                     var numbers = temp.Split(new Char[] { ';', ' ' }).Select(double.Parse).ToList();
                     if (numbers.Count == 2)
                     {
-                        PunktyTreningowe.Add(new KeyValuePair<double, double>(numbers[0], numbers[1]));
+                        Punkty.Add(new KeyValuePair<double, double>(numbers[0], numbers[1]));
                     }
                     else
                     {
                         throw new Exception();
                     }
                 }
+                if (Punkty.Count > 1000)
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        PunktyTreningowe.Add(Punkty[i]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < Punkty.Count; i++)
+                    {
+                        PunktyTreningowe.Add(Punkty[i]);
+                    }
+                }
+
+                //PunktyTreningowe = new ObservableCollection<KeyValuePair<double, double>>(Punkty.Take(1000));
+                //seria1.DataContext = PunktyTreningowe;
+                //seria1.Refresh();
             }
             catch (Exception ex)
             {
@@ -187,10 +207,10 @@ namespace Zadanie_2
                 if (Siec != null)
                 {
                     Neurony.Clear();
-                    if (PunktyTreningowe.Count > 0)
+                    if (Punkty.Count > 0)
                     {
 
-                        blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
+                        blad = Siec.LiczEpoka(Punkty.ToList());
                         foreach (var item in Siec.Neurony)
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
@@ -212,9 +232,9 @@ namespace Zadanie_2
                 else
                 {
                     Neurony.Clear();
-                    if (PunktyTreningowe.Count > 0)
+                    if (Punkty.Count > 0)
                     {
-                        blad = SiecK.LiczEpoka(PunktyTreningowe.ToList());
+                        blad = SiecK.LiczEpoka(Punkty.ToList());
                         foreach (var item in SiecK.Neurony)
                         {
                             Neurony.Add(new KeyValuePair<double, double>(item.Wagi[0], item.Wagi[1]));
@@ -255,12 +275,12 @@ namespace Zadanie_2
                 if (Siec != null)
                 {
                     Neurony.Clear();
-                    
-                    if (PunktyTreningowe.Count > 0)
+
+                    if (Punkty.Count > 0)
                     {
                         for (int i = 0; i < IloscEpok; i++)
                         {
-                            blad = Siec.LiczEpoka(PunktyTreningowe.ToList());
+                            blad = Siec.LiczEpoka(Punkty.ToList());
                         }
                         foreach (var item in Siec.Neurony)
                         {
@@ -283,11 +303,11 @@ namespace Zadanie_2
                 else
                 {
                     Neurony.Clear();
-                    if (PunktyTreningowe.Count > 0)
+                    if (Punkty.Count > 0)
                     {
                         for (int i = 0; i < IloscEpok; i++)
                         {
-                            blad = SiecK.LiczEpoka(PunktyTreningowe.ToList());
+                            blad = SiecK.LiczEpoka(Punkty.ToList());
                         }
                         foreach (var item in SiecK.Neurony)
                         {
