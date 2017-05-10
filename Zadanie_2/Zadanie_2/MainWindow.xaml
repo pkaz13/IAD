@@ -42,7 +42,7 @@
                 <Label Content="Wsp zmiany nauki :" HorizontalAlignment="Left" Margin="10,596,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
                 <xctk:DoubleUpDown x:Name="naukaZmianaCounter" Margin="173,596,52,217" Minimum="-50" Value="0.9999" />
                 <Label Content="Zmiana potencjału :" HorizontalAlignment="Left" Margin="10,633,0,0" VerticalAlignment="Top" Width="158" HorizontalContentAlignment="Left"/>
-                <xctk:DoubleUpDown x:Name="zmianaPotencjaluCounter" Margin="173,633,52,180" Minimum="-50" Value="0.2"  />
+                <xctk:DoubleUpDown x:Name="zmianaPotencjaluCounter" Margin="173,633,52,180" Minimum="-50" Value="0.7"  />
             </Grid>
         </GroupBox>
         <charting:Chart Name="chart" Margin="304,0,0,0" >
