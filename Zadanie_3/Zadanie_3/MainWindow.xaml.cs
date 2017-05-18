@@ -34,10 +34,13 @@ namespace Zadanie_3
         public List<Dana> DaneTreningowe { get; set; }
         public List<Dana> DaneTestowe { get; set; }
 
+        public int IloscEpok { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
             seria1.DataContext = Seria1;
+            seria2.DataContext = Seria2;
         }
 
         private void wczytajDane(int iloscWejsc, int iloscWyjsc)
@@ -96,8 +99,31 @@ namespace Zadanie_3
         {
             if (Siec != null)
             {
+                Seria1.Clear();
+                Seria2.Clear();
+                int iloscEpok = epokiTextBox.Value.Value;
+                for (int i = 0; i < iloscEpok; i++)
+                {
+                    if(i==iloscEpok-1)
+                    {
+                        var wyniki= Siec.LiczEpoka(DaneTreningowe);
+                        foreach (var punkt in DaneTreningowe)
+                        {
+                            Seria1.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], punkt.Wyjscia[0]));
+                        }
+                        foreach (var item in wyniki)
+                        {
+                            Seria2.Add(new KeyValuePair<double, double>(item.Key,item.Value));
+                        }
 
-                //PrzejdzWszystkieEpoki();
+                    }
+                    else
+                    {
+                        Siec.LiczEpoka(DaneTreningowe);
+                    }
+
+                }
+                
 
 
                 string messageBoxText = "Trening ukończony !!!";

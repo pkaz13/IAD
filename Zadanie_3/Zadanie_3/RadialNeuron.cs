@@ -13,15 +13,17 @@ namespace Zadanie_3
         public double Dystans { get; set; }
         public List<double> Wejscia { get; set; }
         public double Wyjscie { get; set; }
-        public double WspolczynnikNauki { get; set; }
+
         public double Promien { get; set; }
+        public double WspolczynnikSkalujacy { get; set; }
 
 
-        public RadialNeuron(int id, int iloscWejsc, double wspolczynnikNauki, List<double> wagi)
+        public RadialNeuron(int id, int iloscWejsc, List<double> wagi,double wspolczynnikSkaulujacyOd,double wspolczynnikSkalujacyDo)
         {
             Id = id;
-            WspolczynnikNauki = wspolczynnikNauki;
             Wagi =wagi;
+            WspolczynnikSkalujacy = MainWindow.random.NextDouble() * (wspolczynnikSkalujacyDo - wspolczynnikSkaulujacyOd) + wspolczynnikSkaulujacyOd;
+            Promien = 1;
         }
 
         public double LiczDystansDoWejscia(List<double> punkt)
@@ -32,7 +34,7 @@ namespace Zadanie_3
             {
                 dystans += (Wagi[i] - Wejscia[i]) * (Wagi[i] - Wejscia[i]);
             }
-            Dystans = Math.Sqrt(dystans);
+            Dystans = Math.Sqrt(dystans)*WspolczynnikSkalujacy;
             return Dystans;
         }
 
@@ -43,12 +45,5 @@ namespace Zadanie_3
             return Wyjscie;
         }
 
-        public void ZmianaWag()
-        {
-            for (int i = 0; i < Wagi.Count; i++)
-            {
-                Wagi[i] += WspolczynnikNauki * Wyjscie * (Wejscia[i] - Wagi[i]);
-            }
-        }
     }
 }

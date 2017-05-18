@@ -94,5 +94,10 @@ namespace Zadanie_3
         {
             return x;
         }
+
+        public void ObliczBlad( double wartoscOczekiwana = 0)
+        {
+            Blad = 1.0 * (wartoscOczekiwana - Wyjscie);        
+        }
     }
 }
