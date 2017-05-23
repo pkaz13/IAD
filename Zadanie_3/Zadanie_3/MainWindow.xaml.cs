@@ -41,6 +41,7 @@ namespace Zadanie_3
             InitializeComponent();
             seria1.DataContext = Seria1;
             seria2.DataContext = Seria2;
+                
         }
 
         private void wczytajDane(int iloscWejsc, int iloscWyjsc)

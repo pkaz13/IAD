@@ -25,6 +25,10 @@ namespace Zadanie_3
                 WarstwaUkryta.Add(new RadialNeuron(i, punkty[i].IloscWejsc, temp[index],0,3));
                 temp.RemoveAt(index);
             }
+            foreach (var item in WarstwaUkryta)
+            {
+                item.UstawPromien(WarstwaUkryta);
+            }
         }
 
         public void UtworzWarstweWyjsciowa(int liczbaNeuronow)
@@ -67,11 +71,11 @@ namespace Zadanie_3
                 foreach (var item in WarstwaWyjsciowa)
                 {
                     wynikiSieci.Add(item.ObliczWyjscie(wynikiWarstywUkrytej));
-                    item.ObliczBlad();
+                    item.ObliczBlad(punkt.Wyjscia[0]);
                     item.ZmianaWag();
                 }
                 temp.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], wynikiSieci[0]));
-                UstawNoweWagiWarstyUkrytej(punkty);
+                //UstawNoweWagiWarstyUkrytej(punkty);
             }
             return temp;
 

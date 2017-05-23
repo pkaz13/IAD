@@ -23,8 +23,18 @@ namespace Zadanie_3
             Id = id;
             Wagi =wagi;
             WspolczynnikSkalujacy = MainWindow.random.NextDouble() * (wspolczynnikSkalujacyDo - wspolczynnikSkaulujacyOd) + wspolczynnikSkaulujacyOd;
-            Promien = 1;
         }
+
+        public double LiczDystansDoNeuronu(List<double> wagi)
+        {
+            double dystans = 0;
+            for (int i = 0; i < Wagi.Count; i++)
+            {
+                dystans += (Wagi[i] - wagi[i]) * (Wagi[i] - wagi[i]);
+            }
+            return Math.Sqrt(dystans);
+        }
+
 
         public double LiczDystansDoWejscia(List<double> punkt)
         {
@@ -34,7 +44,7 @@ namespace Zadanie_3
             {
                 dystans += (Wagi[i] - Wejscia[i]) * (Wagi[i] - Wejscia[i]);
             }
-            Dystans = Math.Sqrt(dystans)*WspolczynnikSkalujacy;
+            Dystans = Math.Sqrt(dystans);// *WspolczynnikSkalujacy;
             return Dystans;
         }
 
@@ -43,6 +53,22 @@ namespace Zadanie_3
             LiczDystansDoWejscia(punkt);
             Wyjscie = Math.Exp(-1 * ((Dystans * Dystans) / (2 * Promien * Promien)));
             return Wyjscie;
+        }
+
+        public void UstawPromien(List<RadialNeuron> neurony)
+        {
+            List<double> dystanse = new List<double>();
+            foreach (var item in neurony)
+            {
+                if (item.Id == this.Id)
+                    continue;
+                else
+                {
+                    dystanse.Add(LiczDystansDoWejscia(item.Wagi));
+                }
+            }
+            double average = dystanse.Average();
+            Promien = average * 2;
         }
 
     }
