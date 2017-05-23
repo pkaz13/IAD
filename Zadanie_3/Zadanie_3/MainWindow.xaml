@@ -72,6 +72,10 @@
                 <xctk:IntegerUpDown x:Name="iloscWyjscTextBox" HorizontalAlignment="Left" Height="33" Margin="185,237,0,0" Text="1" VerticalAlignment="Top" Width="111" Minimum="1"/>
                 <Label Content="Ustawienia warstw:" HorizontalAlignment="Left" Margin="70,116,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Height="45" Width="207"/>
                 <Button x:Name="stworzSiecButton" Content="Stwórz sieć" HorizontalAlignment="Center" Margin="11,481,10,0" VerticalAlignment="Top" Width="287" Click="stworzSiecButton_Click" Height="33"/>
+                <Label Content="Dane testowe:" HorizontalAlignment="Left" Margin="82,586,0,0" VerticalAlignment="Top" FontWeight="Bold" RenderTransformOrigin="0.531,-0.59" Height="40" Width="156"/>
+                <TextBlock x:Name="selectedFileToTestTextBox" HorizontalAlignment="Left" Margin="141,627,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="152" FontStyle="Italic" Height="27"/>
+                <Button x:Name="selectFileToTestButton" Content="Select File" HorizontalAlignment="Left" Margin="11,624,0,0" VerticalAlignment="Top" Width="110" Click="selectFileToTestButton_Click" Height="32" />
+                <Button x:Name="testSieciButton" Content="Testuj sieć" HorizontalAlignment="Center" Margin="11,670,12,0" VerticalAlignment="Top" Width="285" Click="testSieciButton_Click" Height="32"/>
 
             </Grid>
         </GroupBox>

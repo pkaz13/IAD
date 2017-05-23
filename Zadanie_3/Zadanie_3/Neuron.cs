@@ -99,5 +99,10 @@ namespace Zadanie_3
         {
             Blad = 1.0 * (wartoscOczekiwana - Wyjscie);        
         }
+
+        public double ObliczBladKwadratowy(double wartoscOczekiwana)
+        {
+            return 1 / 2.0 * (wartoscOczekiwana - Wyjscie) * (wartoscOczekiwana - Wyjscie);
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace Zadanie_3
         public List<Neuron> WarstwaWyjsciowa { get; set; } = new List<Neuron>();
         public List<RadialNeuron> WarstwaUkryta { get; set; } = new List<RadialNeuron>();
 
+        public double BladSredniokwadratowy { get; set; }
+
         public void UtworzWarstweUkryta(int liczbaNeuronow,List<Dana> punkty)
         {
             WarstwaUkryta = new List<RadialNeuron>();
@@ -57,6 +59,7 @@ namespace Zadanie_3
 
         public List<KeyValuePair<double,double>> LiczEpoka(List<Dana> punkty)
         {
+            double bladSredniokwadratowy = 0;
             List<KeyValuePair<double, double>> temp = new List<KeyValuePair<double, double>>();
             foreach (var punkt in punkty)
             {
@@ -72,13 +75,14 @@ namespace Zadanie_3
                 {
                     wynikiSieci.Add(item.ObliczWyjscie(wynikiWarstywUkrytej));
                     item.ObliczBlad(punkt.Wyjscia[0]);
+                    bladSredniokwadratowy += item.ObliczBladKwadratowy(punkt.Wyjscia[0]);
                     item.ZmianaWag();
                 }
                 temp.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], wynikiSieci[0]));
                 //UstawNoweWagiWarstyUkrytej(punkty);
             }
+            BladSredniokwadratowy = bladSredniokwadratowy;
             return temp;
-
         }
 
     }
