@@ -154,10 +154,11 @@ namespace Zadanie_3
                 }
 
                 Seria1.Clear();
+                Seria2.Clear();
                 wczytajDane(IloscWejsc, IloscWyjsc);
                 Siec = new Siec();
                 Siec.UtworzWarstweUkryta(iloscNeuronwoWarstwyUkrytej, DaneTreningowe);
-                Siec.UtworzWarstweWyjsciowa(IloscWyjsc);
+                Siec.UtworzWarstweWyjsciowa(IloscWyjsc,momentum,krokNauki,czyBias);
 
 
                 string messageBoxText = "Sieć została poprawnie utworzona !!!";

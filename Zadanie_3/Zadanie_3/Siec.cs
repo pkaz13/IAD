@@ -33,12 +33,12 @@ namespace Zadanie_3
             }
         }
 
-        public void UtworzWarstweWyjsciowa(int liczbaNeuronow)
+        public void UtworzWarstweWyjsciowa(int liczbaNeuronow,double momentum,double krokNauki,bool czyBias)
         {
             WarstwaWyjsciowa = new List<Neuron>();
             for (int i = 0; i < liczbaNeuronow; i++)
             {
-                WarstwaWyjsciowa.Add(new Neuron(i, WarstwaUkryta.Count, 0.2, true));
+                WarstwaWyjsciowa.Add(new Neuron(i, WarstwaUkryta.Count, krokNauki, czyBias,momentum));
             }
         }
 

@@ -27,11 +27,12 @@ namespace Zadanie_3
         public double Wyjscie { get; set; }
 
 
-        public Neuron(int id,int iloscWejsc, double krok, bool czyBias)
+        public Neuron(int id,int iloscWejsc, double krok, bool czyBias, double momentum)
         {
             Id = id;
             KrokNauki = krok;
             CzyBias = czyBias;
+            Momentum = momentum;
             Wagi = new List<double>(iloscWejsc);
             PoprzednieWagi = new List<double>(iloscWejsc);
             for (int i = 0; i < PoprzednieWagi.Capacity; i++)
