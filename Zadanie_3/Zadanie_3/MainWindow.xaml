@@ -17,7 +17,7 @@
                 </Style>
             </charting:Chart.LegendStyle>
             <charting:Chart.Axes>
-                <charting:LinearAxis Orientation="Y" ShowGridLines="False"></charting:LinearAxis>
+                <charting:LinearAxis Orientation="Y" ShowGridLines="False" ></charting:LinearAxis>
             </charting:Chart.Axes>
             <charting:Chart.Series>
                 <charting:LineSeries x:Name="seria1" Title="Punkty treningowe"  

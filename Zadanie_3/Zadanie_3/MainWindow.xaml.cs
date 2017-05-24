@@ -33,6 +33,7 @@ namespace Zadanie_3
 
         public int IloscWejsc { get; set; }
         public int IloscWyjsc { get; set; }
+        public double Epsilon { get; set; }
 
         public Siec Siec { get; set; }
         public List<Dana> DaneTreningowe { get; set; }
@@ -113,14 +114,17 @@ namespace Zadanie_3
                 for (int i = 0; i < iloscEpok; i++)
                 {
                     Siec.LiczEpoka(DaneTreningowe);
+                    
                     bledy.Add(Siec.BladSredniokwadratowy);
                     
                     if(i%50==0)
                     {
                         File.AppendAllText(path, "Epoka " + (i + 1) + " : " + Siec.BladSredniokwadratowy + Environment.NewLine);
                     }
+                    if (Siec.BladSredniokwadratowy<=Epsilon)
+                        break;
                 }
-                for (int i = 0; i < bledy.Count;i=i+20)
+                for (int i = 0; i < bledy.Count;i=i+1000)
                 {
                     Seria1.Add(new KeyValuePair<double, double>(i + 1, bledy[i]));
                 }
@@ -139,7 +143,7 @@ namespace Zadanie_3
             try
             {
                 /////Wczytywanie danych z formularza
-                double epsilon = epsilonTextBox.Value.Value;
+                Epsilon = epsilonTextBox.Value.Value;
                 int iloscNeuronwoWarstwyUkrytej = iloscNeuronowUkrytychCounter.Value.Value;
                 IloscWejsc = iloscWejscTextBox.Value.Value;
                 IloscWyjsc = iloscWyjscTextBox.Value.Value;
@@ -200,10 +204,11 @@ namespace Zadanie_3
                 {
                     Seria1.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], punkt.Wyjscia[0]));
                 }
-                foreach (var item in wyniki)
+                for(int i=0;i<wyniki.Count;i=i+1)
                 {
-                    Seria2.Add(new KeyValuePair<double, double>(item.Key, item.Value));
+                    Seria2.Add(new KeyValuePair<double, double>(wyniki[i].Key, wyniki[i].Value));
                 }
+
 
                 string messageBoxText = "Test zakończony.";
                 string caption = "Test";
