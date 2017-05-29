@@ -64,7 +64,7 @@ namespace Zadanie_3
                     continue;
                 else
                 {
-                    dystanse.Add(LiczDystansDoWejscia(item.Wagi));
+                    dystanse.Add(LiczDystansDoNeuronu(item.Wagi));
                 }
             }
             double average = dystanse.Average();

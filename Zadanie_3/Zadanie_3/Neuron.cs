@@ -103,7 +103,7 @@ namespace Zadanie_3
 
         public double ObliczBladKwadratowy(double wartoscOczekiwana)
         {
-            return 1 / 2.0 * (wartoscOczekiwana - Wyjscie) * (wartoscOczekiwana - Wyjscie);
+            return 1 / 2.0 * ((wartoscOczekiwana - Wyjscie) * (wartoscOczekiwana - Wyjscie));
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Zadanie_3
         public static Random random = new Random();
         ObservableCollection<KeyValuePair<double, double>> Seria1 = new ObservableCollection<KeyValuePair<double, double>>();
         ObservableCollection<KeyValuePair<double, double>> Seria2 = new ObservableCollection<KeyValuePair<double, double>>();
+        ObservableCollection<KeyValuePair<double, double>> Seria3 = new ObservableCollection<KeyValuePair<double, double>>();
 
         public string filePath { get; set; }
         public string filePathToTest { get; set; }
@@ -46,6 +47,7 @@ namespace Zadanie_3
             InitializeComponent();
             seria1.DataContext = Seria1;
             seria2.DataContext = Seria2;
+            seria3.DataContext = Seria3;
                 
         }
 
@@ -109,8 +111,14 @@ namespace Zadanie_3
                 File.Create(path).Close();
                 Seria1.Clear();
                 Seria2.Clear();
+                Seria3.Clear();
                 int iloscEpok = epokiTextBox.Value.Value;
                 List<double> bledy = new List<double>();
+                var licznik = 10;
+                if (iloscEpok >= 1000)
+                    licznik = 100;
+                if (iloscEpok >= 50000)
+                    licznik = 1000;
                 for (int i = 0; i < iloscEpok; i++)
                 {
                     Siec.LiczEpoka(DaneTreningowe);
@@ -124,7 +132,8 @@ namespace Zadanie_3
                     if (Siec.BladSredniokwadratowy<=Epsilon)
                         break;
                 }
-                for (int i = 0; i < bledy.Count;i=i+1000)
+                
+                for (int i = 0; i < bledy.Count;i=i+ licznik)
                 {
                     Seria1.Add(new KeyValuePair<double, double>(i + 1, bledy[i]));
                 }
@@ -159,6 +168,7 @@ namespace Zadanie_3
 
                 Seria1.Clear();
                 Seria2.Clear();
+                Seria3.Clear();
                 wczytajDane(IloscWejsc, IloscWyjsc);
                 Siec = new Siec();
                 Siec.UtworzWarstweUkryta(iloscNeuronwoWarstwyUkrytej, DaneTreningowe);
@@ -199,7 +209,8 @@ namespace Zadanie_3
                 wczytajDaneTestowe(IloscWejsc, IloscWyjsc);
                 Seria1.Clear();
                 Seria2.Clear();
-                var wyniki = Siec.LiczEpoka(DaneTestowe);
+                Seria3.Clear();
+                var wyniki = Siec.TestSieci(DaneTestowe);
                 foreach (var punkt in DaneTestowe)
                 {
                     Seria1.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], punkt.Wyjscia[0]));
@@ -208,7 +219,10 @@ namespace Zadanie_3
                 {
                     Seria2.Add(new KeyValuePair<double, double>(wyniki[i].Key, wyniki[i].Value));
                 }
-
+                foreach (var item in Siec.WarstwaUkryta)
+                {
+                    Seria3.Add(new KeyValuePair<double, double>(item.Wagi[0],0));
+                }
 
                 string messageBoxText = "Test zakończony.";
                 string caption = "Test";

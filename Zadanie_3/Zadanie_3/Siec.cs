@@ -85,5 +85,27 @@ namespace Zadanie_3
             return temp;
         }
 
+        public List<KeyValuePair<double, double>> TestSieci(List<Dana> punkty)
+        {
+            List<KeyValuePair<double, double>> temp = new List<KeyValuePair<double, double>>();
+            foreach (var punkt in punkty)
+            {
+
+                List<double> wynikiWarstywUkrytej = new List<double>();
+                foreach (var item in WarstwaUkryta)
+                {
+                    wynikiWarstywUkrytej.Add(item.LiczWyjscie(punkt.Wejscia));
+                }
+
+                List<double> wynikiSieci = new List<double>();
+                foreach (var item in WarstwaWyjsciowa)
+                {
+                    wynikiSieci.Add(item.ObliczWyjscie(wynikiWarstywUkrytej));
+                }
+                temp.Add(new KeyValuePair<double, double>(punkt.Wejscia[0], wynikiSieci[0]));
+            }
+            return temp;
+        }
+
     }
 }
