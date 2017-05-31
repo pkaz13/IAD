@@ -21,9 +21,10 @@ namespace Zadanie_3
             {
                 temp.Add(item.Wejscia);
             }
+
             for (int i = 0; i < liczbaNeuronow; i++)
-            {
-                int index = MainWindow.random.Next(0, temp.Count - 1);
+            {               
+                int index = MainWindow.random.Next(0, temp.Count-1);
                 WarstwaUkryta.Add(new RadialNeuron(i, punkty[i].IloscWejsc, temp[index],0,3));
                 temp.RemoveAt(index);
             }

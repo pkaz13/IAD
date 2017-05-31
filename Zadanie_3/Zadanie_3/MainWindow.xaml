@@ -45,7 +45,7 @@
                         </Style>
                     </charting:LineSeries.DataPointStyle>
                 </charting:LineSeries>
-                <charting:ScatterSeries x:Name="seria3" Title="Centra"  
+                <charting:ScatterSeries x:Name="seria3" Title="Centra" Visibility="Hidden"  
                                     ItemsSource="{Binding}" 
                                     DependentValueBinding="{Binding Path=Value}" 
                                     IndependentValueBinding="{Binding Path=Key}"
