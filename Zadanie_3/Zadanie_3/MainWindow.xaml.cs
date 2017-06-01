@@ -115,7 +115,7 @@ namespace Zadanie_3
                 int iloscEpok = epokiTextBox.Value.Value;
                 List<double> bledy = new List<double>();
                 var licznik = 10;
-                if (iloscEpok >= 1000)
+                if (iloscEpok > 1000)
                     licznik = 100;
                 if (iloscEpok >= 50000)
                     licznik = 1000;

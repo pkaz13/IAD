@@ -67,8 +67,9 @@ namespace Zadanie_3
                     dystanse.Add(LiczDystansDoNeuronu(item.Wagi));
                 }
             }
-            double average = dystanse.Average();
-            Promien = average * 2;
+            double average = dystanse.Max();
+            Promien = (average/Math.Sqrt(2*neurony.Count));
+            //Promien = 1;
         }
 
     }
